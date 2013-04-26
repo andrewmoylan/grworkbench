@@ -1,0 +1,48 @@
+pi = 3.1415926535897932384626433832795;
+e  = 2.7182818284590452353602874713527;
+
+half = {divide ? 2};
+
+square = {multiply ? ?};
+
+logarithm_base =
+{{
+	log_base = logarithm :?;
+	divide (logarithm ?) log_base
+}};
+
+factorial = eager
+{
+	n = ?;
+	nfn1 = multiply n (factorial (decrement n));
+	if_then_else (equal n 1) 1 nfn1
+};
+
+integer_range =
+{{
+	if_then_else (equal :? ?)
+		(singlet ?)
+		(
+			numeric_range
+			(
+				if_then_else
+					(less_than ? :?)
+					-1
+					1
+			)
+			:?
+			?	
+		)
+}};
+
+fibonacci = eager
+{
+	n = ?;
+	n_1 = decrement n;
+	n_2 = decrement n_1;
+	ifs
+		(equal n 1) 1
+		(equal n 2) 1
+		true (add (fibonacci n_1) (fibonacci n_2))
+		nil
+};

@@ -1,0 +1,183 @@
+kerr_mass = 1;
+
+kerr_delta =
+{{{{
+	m = :::?;
+	a = ::?;
+	e = :?;
+	r = ?;
+	add (square r) (subtract (add (square e) (square a)) (multiply 2 (multiply m r)))
+}}}};
+
+sub_critical_kerr_a = square_root 0.5;
+sub_critical_kerr = boyer_lindquist_in_region kerr_mass sub_critical_kerr_a 0;
+sub_critical_kerr_2 = boyer_lindquist_2_in_region kerr_mass sub_critical_kerr_a 0;
+
+near_critical_kerr_a = 0.999;
+near_critical_kerr = boyer_lindquist_in_region kerr_mass near_critical_kerr_a 0;
+near_critical_kerr_2 = boyer_lindquist_2_in_region kerr_mass near_critical_kerr_a 0;
+
+critical_kerr = boyer_lindquist_in_region kerr_mass kerr_mass 0 0;
+critical_kerr_2 = boyer_lindquist_2_in_region kerr_mass kerr_mass 0 0;
+
+super_critical_kerr_a = square_root 2;
+super_critical_kerr = boyer_lindquist_in_region kerr_mass super_critical_kerr_a 0;
+super_critical_kerr_2 = boyer_lindquist_2_in_region kerr_mass super_critical_kerr_a 0;
+
+kerr_a = sub_critical_kerr_a;
+kerr = sub_critical_kerr;
+kerr_2 = sub_critical_kerr_2;
+
+schwarzschild_mass = kerr_mass;
+schwarzschild = boyer_lindquist_in_region schwarzschild_mass 0 0;
+schwarzschild_2 = boyer_lindquist_2_in_region schwarzschild_mass 0 0;
+
+flat_spherical_polar = boyer_lindquist_in_region 0 0 0;
+flat_spherical_polar_2 = boyer_lindquist_2_in_region 0 0 0;
+
+add_all_kerr_charts =
+{{{
+	m = ::?;
+	a = :?;
+	e = ?;
+	valid_regions = if_then_else (equal (square m) (add (square a) (square e)))
+		(list 2 1 3)
+		(
+			if_then_else (greater_than (square m) (add (square a) (square e)))
+				(list 3 1 2 3)
+				(list 1 1)
+		);
+	
+	ikc1 = ingoing_kerr_coordinates m a e;
+	ikc2 = ingoing_kerr_coordinates_2 m a e;
+	okc1 = outgoing_kerr_coordinates m a e;
+	okc2 = outgoing_kerr_coordinates_2 m a e;
+	bl1s = image_under (boyer_lindquist_in_region m a e) valid_regions;
+	bl2s = image_under (boyer_lindquist_2_in_region m a e) valid_regions;
+	
+	sph = spherical_revolve;
+	bl_ikcs = image_under (boyer_lindquist_to_ingoing_kerr_coordinates_in_region m a e) valid_regions;
+	ikc_bls = image_under (ingoing_kerr_coordinates_to_boyer_lindquist_in_region m a e) valid_regions;
+	bl_okcs = image_under (boyer_lindquist_to_outgoing_kerr_coordinates_in_region m a e) valid_regions;
+	okc_bls = image_under (outgoing_kerr_coordinates_to_boyer_lindquist_in_region m a e) valid_regions;
+	
+	if_then_else (greater_than_or_equal (square m) (add (square a) (square e)))
+		(			
+			(
+			add_chart ikc1
+			add_chart ikc2
+			add_map_between_charts ikc1 ikc2 sph
+			add_map_between_charts ikc2 ikc1 sph
+			)
+			(
+			add_chart okc1
+			add_chart okc2
+			add_map_between_charts okc1 okc2 sph
+			add_map_between_charts okc2 okc1 sph
+			)
+		)
+		I
+		
+	
+	(
+	add_map_between_charts ikc1 okc1 (optional_compose (apply_any ikc_bls) (apply_any bl_okcs))
+	add_map_between_charts okc1 ikc1 (optional_compose (apply_any okc_bls) (apply_any bl_ikcs))
+	add_map_between_charts ikc2 okc2 (optional_compose (apply_any ikc_bls) (apply_any bl_okcs))
+	add_map_between_charts okc2 ikc2 (optional_compose (apply_any okc_bls) (apply_any bl_ikcs))
+	add_map_between_charts ikc1 okc2 (optional_compose sph (optional_compose (apply_any ikc_bls) (apply_any bl_okcs)))
+	add_map_between_charts okc1 ikc2 (optional_compose sph (optional_compose (apply_any okc_bls) (apply_any bl_ikcs)))
+	add_map_between_charts ikc2 okc1 (optional_compose sph (optional_compose (apply_any ikc_bls) (apply_any bl_okcs)))
+	add_map_between_charts okc2 ikc1 (optional_compose sph (optional_compose (apply_any okc_bls) (apply_any bl_ikcs)))
+	)
+	
+	for_each (integer_range 0 (decrement (list_size valid_regions)))
+	{
+		bl1 = bl1s ?;
+		bl2 = bl2s ?;
+		bl_ikc = bl_ikcs ?;
+		ikc_bl = ikc_bls ?;
+		bl_okc = bl_okcs ?;
+		okc_bl = okc_bls ?; 
+		
+		add_map_between_charts bl1 bl2 sph
+		add_map_between_charts bl2 bl1 sph
+		
+		if_then_else (greater_than_or_equal (square m) (add (square a) (square e)))
+			(
+				
+				(
+				add_map_between_charts bl1 ikc1 bl_ikc
+				add_map_between_charts bl2 ikc2 bl_ikc
+				add_map_between_charts ikc1 bl1 ikc_bl
+				add_map_between_charts ikc2 bl2 ikc_bl
+				add_map_between_charts bl1 ikc2 (optional_compose sph bl_ikc)
+				add_map_between_charts bl2 ikc1 (optional_compose sph bl_ikc)
+				add_map_between_charts ikc2 bl1 (optional_compose sph ikc_bl)
+				add_map_between_charts ikc1 bl2 (optional_compose sph ikc_bl)
+				
+				add_map_between_charts bl1 okc1 bl_okc
+				add_map_between_charts bl2 okc2 bl_okc
+				add_map_between_charts okc1 bl1 okc_bl
+				add_map_between_charts okc2 bl2 okc_bl
+				add_map_between_charts bl1 okc2 (optional_compose sph bl_okc)
+				add_map_between_charts bl2 okc1 (optional_compose sph bl_okc)
+				add_map_between_charts okc2 bl1 (optional_compose sph okc_bl)
+				add_map_between_charts okc1 bl2 (optional_compose sph okc_bl)
+				)
+
+			)
+			I
+	}
+}}};
+
+kerr_kretschmann_field =
+{{{
+	m = ::?;
+	a = :?;
+	p = ?;
+	x = chart_map (ingoing_kerr_coordinates m a) p;
+	r = second x;
+	theta = third x;
+	a2 = square a;
+	m2 = square m;
+	c2 = square (cosine theta);
+	r2 = square r;
+	a4 = square a2;
+	a6 = multiply a2 a4;
+	c4 = square c2;
+	c6 = multiply c2 c4;
+	r4 = square r2;
+	r6 = multiply r2 r4;
+	multiply
+		-8
+		(divide
+			(sum (list 4
+				(product (list 4 6 a6 c6 m2))
+				(product (list 5 -90 a4 c4 m2 r2))
+				(product (list 5 90 a2 c2 m2 r4))
+				(product (list 3 -6 m2 r6))
+			))
+			(power (add (multiply a2 c2) r2) 6)
+		)
+}}};
+
+ignore
+(
+show_string "Adding sub-critical Kerr ..." show_string new_line
+add_all_kerr_charts kerr_mass sub_critical_kerr_a 0
+
+show_string "Adding near-critical Kerr ..." show_string new_line
+add_all_kerr_charts kerr_mass near_critical_kerr_a 0
+
+show_string "Adding critical Kerr ..." show_string new_line
+add_all_kerr_charts kerr_mass kerr_mass 0
+
+show_string "Adding super-critical Kerr ..." show_string new_line
+add_all_kerr_charts kerr_mass super_critical_kerr_a 0
+
+show_string "Adding Schwarzschild ..." show_string new_line
+add_all_kerr_charts schwarzschild_mass 0 0
+
+show_string "Adding flat (spherical-polar) ..." show_string new_line
+add_all_kerr_charts 0 0 0
+)

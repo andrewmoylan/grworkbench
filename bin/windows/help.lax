@@ -1,0 +1,32 @@
+grwb_help = show_string
+"
+lax interface to GRworkbench, by Andrew Moylan and Antony Searle, 2003-2004
+---------------------------------------------------------------------------
+
+The lax interface to GRworkbench supplies lax definitions that interact with
+GRworkbench.
+
+Quick examples
+--------------
+
+Define a point on the equatorial plane of the Kerr space-time like this:
+	>> p = point kerr (quadruplet 0 10 (half pi) pi);
+
+Define a tangent vector at that point like this:
+	>> v = vector p kerr (quadruplet 1 0 0 0.01);
+	
+Define the geodesic with that tangent vector like this:
+	>> g = geodesic v;
+	
+Visualise that geodesic in the range [-5, 5] in the default visualisation
+window like this:
+	>> visualise g -5 5
+	
+Define your own arbitrary space-time curve like this:
+	>> c = {point kerr (quadruplet ? 10 (half pi) (add pi ?))};
+	
+Visualise that curve using a different colour like this:
+	>> visualise_with_colour green c -1 1 
+
+For more examples, read the files included by grwb-prelude.lax.
+";

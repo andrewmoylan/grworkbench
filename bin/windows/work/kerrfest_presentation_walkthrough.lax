@@ -1,0 +1,54 @@
+C = near_critical_kerr 1;
+
+p = point C (quadruplet 0 3 (half pi) 3);
+
+C2 = near_critical_kerr_2 1;
+
+s1 = show (chart_map C2 p);
+
+obs = vector p C (quadruplet 1 0 0 0);
+B = orthonormal_tangent_basis obs;
+
+s2 = for_each B visualise_vector;
+
+g_obs = geodesic obs;
+
+s3 = visualise_with_colour yellow g_obs 0 7;
+s4 = visualise_with_colour yellow g_obs 0 8;
+s5 = visualise_with_colour yellow g_obs -6.5 7;
+
+orb = vector p C (quadruplet 1 -0.05 0.05 0.15);
+
+s6 = visualise (geodesic orb) 0 400;
+s7 = remove_distortion spherical_distortion;
+s8 =
+	ignore "This is a geodesic that enters and leaves the ergosphere; it is in the ergosphere at t = 112--113."
+	replace_distortions
+;
+
+s9 = stop_visualising (geodesic orb);
+
+N = null_spray obs;
+
+s10 = for_each N {visualise_vector ?};
+
+p2 = point C (quadruplet 0 1.5 (half pi) 0.1);
+obs2 = observer_at p2;
+N2 = null_spray obs2;
+
+s11 = for_each N2 {visualise_vector ?};
+s12 = remove_distortion suppress_time;
+s13 = add_distortion suppress_time;
+
+s14 = for_each N {stop_visualising_vector ?};
+s15 = for_each N {visualise_with_colour purple (geodesic ?) 0 1.8};
+
+s16 = for_each N2 {stop_visualising_vector ?};
+s17 = visualise_null_evolution_slice obs2 0.2;
+s18 = visualise_null_evolution_slice obs2 0.6;
+s19 = visualise_with_colour yellow (geodesic obs2) 0 0.6;
+
+s20 = visualise_null_evolution_slice obs 1;
+s21 = visualise_null_evolution_slice obs 1.5;
+
+s_all = s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 s13 s14 s15 s16 s17 s18 s19 s20 s21;

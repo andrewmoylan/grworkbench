@@ -1,0 +1,68 @@
+C = boyer_lindquist_in_region 0.5 0 0 1;
+C2 = boyer_lindquist_2_in_region 0.5 0 0 1;
+
+coordinate_origin = quadruplet 0 6 (half pi) (half pi);
+p = point C coordinate_origin;
+coordinate_direction = quadruplet 1 0 0 (divide 0.3 6);
+beam_splitter_tangent = normalise (vector p C coordinate_direction);
+beam_splitter = {point C (zip_with add coordinate_origin (image_under (multiply ?) (components C beam_splitter_tangent)))};
+
+radial_mirror_direction = orthonormalise_vector (vector p C (quadruplet 0 1 0 0)) beam_splitter_tangent;
+theta_mirror_direction = orthonormalise_vector (orthonormalise_vector (vector p C (quadruplet 0 0 1 0)) beam_splitter_tangent) radial_mirror_direction;
+phi_mirror_direction = orthonormalise_vector (orthonormalise_vector (orthonormalise_vector (vector p C (quadruplet 0 0 0 1)) beam_splitter_tangent) radial_mirror_direction) theta_mirror_direction;
+directions = list 5 radial_mirror_direction (negate_vector radial_mirror_direction) theta_mirror_direction phi_mirror_direction (negate_vector phi_mirror_direction);
+
+data = list 5
+	(pair
+		(quadruplet 3.63134222760882 2.68209360111259 0. 0.255849384740261)
+		(quadruplet 3.41474079889211 -2.86070898493214 -2.09433004896039e-16 0.119296246942276)
+	)
+	(pair
+		(quadruplet 3.28313304864255 -2.68285920671152 5.94934505316387e-20 0.0979212578020487)
+		(quadruplet 3.89893270240744 2.59027740902461 4.51293847089915e-12 0.313645338770866)
+	)
+	(pair
+		(quadruplet 3.48639970836725 -0.00738131297025243 -0.502174082395633 0.170835360405782)
+		(quadruplet 3.42422792795315 -1.15601190182427 0.408922868053531 0.177478300331288)
+	)
+	(pair
+		(quadruplet 4.62578776181569 -0.420446198706292 7.85575470852631e-11 0.699592414551514)
+		(quadruplet 2.30905129241784 -0.894753720851853 -5.98925565900975e-11 -0.284406758618406)
+	)
+	(pair
+		(quadruplet 2.35490529619444 0.405176260666277 4.29307277135159e-17 -0.350567572832819)
+		(quadruplet 4.53571582242519 -1.64658754950197 7.2852446916864e-15 0.567561931748172)
+	)
+;
+
+affine_length = 6.0641049743481;
+
+set_default_window (window "Interferometer demo")
+
+add_chart C
+add_chart C2
+add_map_between_charts C C2 spherical_revolve
+add_map_between_charts C2 C spherical_revolve
+
+visualise_on_chart C
+for_each (pair spherical_distortion suppress_time) add_distortion
+add_kerr_event_horizon 0.5 0 0
+
+visualise_with_colour purple beam_splitter 0 affine_length
+
+for_each (zip_with pair directions data)
+{
+	v = first ?;
+	data = second ?;
+	
+	mirror_origin = geodesic v 3;
+	mirror_tangent = normalise (vector mirror_origin C coordinate_direction);
+	mirror = {point C (zip_with add (chart_map C mirror_origin) (image_under (multiply ?) (components C mirror_tangent)))};
+	outward_ray = geodesic (vector p C (first data));
+	reflection = outward_ray 1;
+	inward_ray = geodesic (vector reflection C (second data));
+	
+	visualise_with_colour cyan mirror 0 affine_length	
+	visualise_with_colour	yellow outward_ray 0 1
+	visualise_with_colour	yellow inward_ray 0 1
+}

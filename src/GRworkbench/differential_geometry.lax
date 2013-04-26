@@ -1,0 +1,184 @@
+numerical_tolerance = 1e-8;
+
+normal_vector = {{{normalise_vector (vector ::? :? ?)}}};
+chart_of_vector = compose chart_of_point point_of_vector;
+orthonormalise_vector = orthonormalise_vector_with_respect_to;
+orthonormalise = orthonormalise_vector;
+normalise = normalise_vector;
+
+magnitude = {metric ? ?};
+
+vector_at_coordinates =
+{{{
+	C = ::?;
+	p = point C :?;
+	vector p C ?
+}}};
+
+observer_at = eager
+{
+	p = ?;
+	vector p (chart_of_point p) (eigenvectors_of_metric (chart_of_point p) p 0)
+};
+
+orthonormalise_vector_with_respect_to_vectors =
+{{
+	v = :?;
+	l = ?;
+	normalise_vector
+		(
+			compose_list
+				(image_under {{orthonormalise_vector ? :?}} l)
+				v
+		)
+}};
+
+normally_nullify_vector_with_respect_to =
+{{
+	v = :?;
+	w = ?;
+	add_vectors w (orthonormalise_vector v w)
+}};
+
+nullify_vector = normally_nullify_vector_with_respect_to;
+
+is_null_vector =
+{
+	less_than (absolute_value (metric ? ?)) numerical_tolerance
+};
+
+is_spacelike_vector =
+{
+	greater_than_or_equal (metric ? ?) numerical_tolerance
+};
+
+is_timelike_vector =
+{
+	less_than_or_equal (metric ? ?) (negate numerical_tolerance)
+};
+
+unit_components = eager_n 2
+{{
+	i = :?;
+	dimension = ?;
+	{
+		if_then_else				
+			(or (greater_than_or_equal ? dimension) (less_than ? 0))
+			nil
+			(
+				if_then_else
+					(equal ? i)
+					1
+					0
+			)
+	}
+}};
+
+unit_vector = eager_n 3
+{{{
+	p = ::?;
+	c = :?;
+	i = ?;
+	vector p c (unit_components i (list_size (chart_map c p)))
+}}};
+
+orthonormal_spacelike_basis =
+{
+	obs = ?;
+	c = chart_of_vector obs;
+	p = point_of_vector obs;
+	dimension = list_size (components c ?);
+	detail = 
+	{{
+		i = :?;
+		partial_basis = ?;
+		unit_coord = vector p c (unit_components i dimension);
+		maybe = orthonormalise_vector (orthonormalise_vector_with_respect_to_vectors unit_coord partial_basis) obs;
+		if_then_else
+			(or (equal i dimension) (equal (list_size partial_basis) (decrement dimension)))
+			partial_basis
+			(
+				[detail]
+					(increment i)
+					(
+						if_then_else
+							(is_spacelike_vector maybe)
+							(join_lists (singlet maybe) partial_basis)
+							partial_basis
+					)
+			)
+	}};
+	detail 0 nil
+};
+
+orthonormal_tangent_basis =
+{
+	n = normalise ?;
+	join_lists (singlet n) (orthonormal_spacelike_basis n)
+};
+
+zero_vector = eager
+{
+	p = ?;
+	c = chart_of_point p;
+	dim = list_size (chart_map c p);
+	vector p c (constant_list dim 0)
+};
+
+null_spray_3d_with_density = eager_n 2
+{{
+	n = :?;
+	obs = normalise_vector ?;
+	c = chart_of_vector obs;
+	p = point_of_vector obs;
+	directions = faces_of_cube n;
+	basis = orthonormal_spacelike_basis obs;
+	detail =
+	{
+		spacelike_part = normalise_vector (fold_with add_vectors (zero_vector p) (zip_with {{multiply_vector :? ?}} ? basis));
+		nullify_vector spacelike_part obs
+	};
+	image_under detail directions
+}};
+
+null_evolution_slice =
+{{
+	obs = normalise :?;
+	t = ?;
+	basis = orthonormal_spacelike_basis obs;
+	{
+		theta = first ?;
+		phi = second ?;
+		v1 = multiply_vector (cosine theta) (first basis);
+		v2 = multiply_vector (multiply (sine theta) (cosine phi)) (second basis);
+		v3 = multiply_vector (multiply (sine theta) (sine phi)) (third basis);
+		v = add_vectors (add_vectors (add_vectors v1 v2) v3) obs;
+		geodesic v t
+	}
+}};
+
+null_evolution_slice_at =
+{{
+	p = :?;
+	t = ?;
+	null_evolution_slice (observer_at p) t
+}};
+
+null_spray = null_spray_3d_with_density 2;
+
+null_spray_at = eager
+{
+	null_spray (observer_at ?)
+};
+
+null_geodesic_spray = 
+{{
+	image_under geodesic (null_spray :? ?)
+}};
+
+null_geodesic_spray_at =
+{
+	image_under geodesic (null_spray_at ?)
+};
+
+negate_vector = multiply_vector -1;

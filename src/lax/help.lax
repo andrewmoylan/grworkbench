@@ -1,0 +1,185 @@
+help = for_each (list 5
+"
+lax interpreter, by Antony Searle and Andrew Moylan, 2003-2004
+--------------------------------------------------------------
+
+lax is a lazily evaluated functional programming language, variously inspired
+by the lambda calculus and combinatory logic.
+
+Quick examples
+--------------
+
+Call functions like this:
+	>> if_then_else false 1 2
+	-> 2
+
+'equal' evaluates its two arguments and returns a boolean:
+	>> equal (cosine pi) -1
+	-> true
+	
+'identical' doesn't evaluate its arguments:
+	>> identical (cosine pi) -1
+	-> false
+
+To define a function, enclose its definition in curly brackets, using a
+question mark to represent the argument of the function:
+	>> {add ? ?} 6
+	-> 12
+
+You can name your functions, and they can include private definitions of
+their own:
+	>> square = {x = ?; multiply x x}; square 7
+	Defined square
+	-> 49
+	
+A colon is used to refer to a definition at a higher scope:
+	>> test = 1; {test = 2; :test} 3
+	-> 1
+	
+Functions can be recursive:
+	>> fibonacci =
+	   {
+	   n = ?;
+	   n_1 = add -1 n;
+	   n_2 = add -1 n_1;
+	   ifs
+	     (equal n 1) 1
+	     (equal n 2) 1
+	     true (add (fibonacci n_1) (fibonacci n_2))
+	     nil
+	   };
+	   
+You can re-define identifiers:
+	>> y = 0; z = sine y; z
+	Defined y
+	Defined z
+	-> 0
+And then:
+	>> y = half pi;
+	Warning, redefined y
+	>> z
+	-> 1
+Thus, z is an object which, each time it is evaluated, passes y to sine.
+	
+lax converts most things into three basic combinators (described below):
+	>> {add 5 ?}
+	-> S (S (K add) (K 5)) I
+
+Basic combinators
+-----------------
+
+The 'identity combinator', I:
+	I a -> a
+Example:
+	>> I 5
+	-> 5
+	
+The 'K combinator', K:
+	K a b -> a
+Example:
+	>> K 5 6
+	-> 5
+	
+The 'S combinator', S:
+	S a b c -> a c (b c)
+Example:
+	>> S (S (K add) (K 5)) I 3
+	-> S (K add) (K 5) 3 (I 3)
+	-> (K add) 3 ((K 5) 3) 3
+	-> add 5 3
+	-> 8
+	
+For more lax examples, read the files included by prelude.lax.
+
+The prelude
+-----------
+
+The lax prelude, prelude.lax, is executed automatically on startup.  It in turn
+executes several other files, each of which consists of useful definitions
+related to a particular topic.
+* builtins.lax renames or otherwise alters builtin functions.
+* help.lax defines this help function.
+* lists.lax defines functions for manipulating lists.  More information about
+  lists can be found below.
+* maths.lax provides some useful definitions for constructing mathematical
+  functions.
+* standard.lax defines useful functions for defining your own functions.
+
+Lists in lax
+------------
+
+By convention, a list is a function which returns a value for each non-negative
+integer corresponding to the item at that location in the list.  The built-in
+list function is useful for creating lists of a known size:
+	>> y = list 3 7 sine 'z';
+	Defined y
+This is sets y to the list (7, sine, 'z').  (A list can contain elements of
+any type.)  Elements of a list are referred to by index, with 0 being the first
+element:
+	>> y 1
+	-> sine
+Some related named functions are defined.  For example, the function called
+first is trivially defined as:
+	first = {? 0};
+second, third, and fourth are similarly defined.  Thus:
+	>> second y
+	-> sine
+	
+Advanced examples
+-----------------
+
+This demonstrates the show function, which prints the value of its argument,
+and always returns I, enabling you to string show statements together:
+	>> show 5
+	5
+	-> I
+	>> show 5 show 6 show 7
+	567
+	-> I
+	
+Character strings, enclosed in quotation marks, are represented as lists:
+	>> s = " quotation_mark "asdf" quotation_mark "; s
+	Defined s
+	-> list 4 'a' 's' 'd' 'f'
+The show_string function shows a string:
+	>> show_string s
+	asdf
+	-> I
+The new_line object contains a new-line character in a string:
+	>> show_string new_line
+	
+	-> I
+	
+The pair function is defined trivially as:
+	pair = list 2;
+singlet, triplet, and quadruplet are similarly defined.  Thus:
+	>> show_string (quadruplet 'a' 's' 'd' 'f')
+	asdf
+	-> I
+The show_list function is useful for showing lists in a convenient format:
+	>> show_list (triplet 1 2 3)
+	[1, 2, 3]
+	-> I
+	
+The compose function takes two arguments and is their composition:
+	>> compose cosine sine 0
+	-> 1
+	>> compose show cosine 0
+	1
+	-> I
+	
+The image_under function forms the image of a list under a transformation:
+	>> show_list (image_under increment (integer_range 1 5))
+	[2, 3, 4, 5, 6]
+	-> I
+	
+The for_each function takes a list and a function and calls the function,
+which should return I, with each member of the list:
+	>> for_each (integer_range 1 3) {show (sine ?) show_string new_line}
+	0.841...
+	0.909...
+	0.141...
+	-> I
+	
+[Scroll up to see the beginning of the help text.]
+") show_string;

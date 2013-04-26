@@ -1,0 +1,6 @@
+or = logical_or;
+and = logical_and;
+get = get_dynamic_variable;
+set = set_dynamic_variable;
+start_logging = set_logging true;
+stop_logging = set_logging false;

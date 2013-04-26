@@ -1,0 +1,94 @@
+black_hole_mass = 1;
+black_hole_ang_m = 0.9999;
+black_hole_charge = 0;
+chart = boyer_lindquist_2_in_region black_hole_mass black_hole_ang_m black_hole_charge 1;
+event = point chart (quadruplet 0 10 (half pi) (2));
+observer = normalise 
+		(tangent_vector_at_point_on_chart event chart (quadruplet 50 1 0 0));
+worldline = geodesic observer;
+
+
+prepare_spacetime =
+	add_all_kerr_charts black_hole_mass black_hole_ang_m black_hole_charge
+	add_distortion spherical_distortion
+	add_distortion suppress_time
+	for_each (pair 1 2) 
+	{
+	    visualise_on_chart 
+		(boyer_lindquist_in_region black_hole_mass black_hole_ang_m black_hole_charge ?)
+	    visualise_on_chart 
+		(boyer_lindquist_2_in_region black_hole_mass black_hole_ang_m black_hole_charge ?)
+	}
+	trace_observer_worldline
+;
+
+depict_horizon =
+	add_kerr_event_horizon black_hole_mass black_hole_ang_m black_hole_charge
+;
+
+trace_observer_worldline =
+{
+	show_string "Observer's worldline tangent vector has magnitude "
+	show (magnitude observer) show_string " (ie. is timelike)" show_new_line
+	visualise_with_colour white worldline -20 49.22
+} I;
+
+trace_various_null_rays = 
+{
+	time = observer;
+	place = point_of_tangent_vector time;
+	radius = orthonormalise_vector_with_respect_to
+			(tangent_vector_at_point_on_chart place chart (list 4 0 -1 0 0))
+			time;
+	theta = orthonormalise_vector_with_respect_to
+			(
+			 orthonormalise_vector_with_respect_to
+				(tangent_vector_at_point_on_chart place chart (list 4 0 0 1 0))
+				time
+			)
+			radius;
+	phi = orthonormalise_vector_with_respect_to
+			(
+			 orthonormalise_vector_with_respect_to
+				(
+					orthonormalise_vector_with_respect_to
+						(tangent_vector_at_point_on_chart 
+							place chart (list 4 0 0 0 1))
+						time
+				)
+				radius
+			)
+			theta;
+	lessflatness = -0.3;
+	lessflat = add_vectors
+			(multiply_vector (cosine lessflatness) (radius))
+			(multiply_vector (sine lessflatness) (theta));
+
+
+	for_each (numeric_range 0.1 -0.8 0.8)
+	{
+			spacelike = add_vectors
+					(multiply_vector (cosine ?) (radius))
+					(multiply_vector (sine ?) (phi));
+			null = add_vectors spacelike time;
+			visualise_with_colour yellow (geodesic null) 0 10.52
+	}
+
+	for_each (numeric_range 0.1 -0.8 0.8)
+	{
+			spacelike = add_vectors
+					(multiply_vector (cosine ?) (lessflat))
+					(multiply_vector (sine ?) (phi));
+			null = add_vectors spacelike time;
+			visualise_with_colour yellow (geodesic null) 0 60
+	}
+
+	I
+} I;
+
+
+
+a = depict_horizon;
+b = trace_various_null_rays;
+prepare_spacetime
+add_kerr_visualisations black_hole_mass black_hole_ang_m black_hole_charge

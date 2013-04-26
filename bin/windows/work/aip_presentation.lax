@@ -1,0 +1,119 @@
+add_simple_kerr_visualisations =
+	add_horizon
+	add_kerr_ergosphere m a q
+;
+
+add_horizon =	add_kerr_event_horizon m a q;
+
+m = 1;
+a = 0.999;
+q = 0;
+
+BL1 = boyer_lindquist_in_region m a q 1;
+BL1b = boyer_lindquist_2_in_region m a q 1;
+BL2 = boyer_lindquist_in_region m a q 2;
+BL3 = boyer_lindquist_in_region m a q 3;
+IKC = ingoing_kerr_coordinates m a q;
+OKC = outgoing_kerr_coordinates m a q;
+
+BL = triplet BL1 BL2 BL3;
+
+demo_p = point BL1 (quadruplet 0 3 (half pi) 3);
+demo_v = vector demo_p BL1 (quadruplet 1 -0.05 0.05 0.15);
+orbiting_g = geodesic demo_v;
+
+infalling_p = point BL1 (quadruplet 0 1.5 (half pi) 3);
+infalling_v = vector infalling_p BL1 (quadruplet 1 0 0.01 0.1);
+infalling_g = geodesic infalling_v;
+
+replace_distortions = 
+	remove_distortions
+	add_distortion spherical_distortion
+	add_distortion suppress_time
+;	
+
+orbiting =
+	set_default_window (window "Orbiting")
+	visualise_on_chart BL1
+	revolve
+	replace_distortions
+	add_simple_kerr_visualisations
+	visualise orbiting_g 0 400
+;
+
+infalling_BL =
+	set_default_window (window "Infalling (Boyer-Lindquist)")
+	visualise_on_chart BL1
+	replace_distortions
+	add_horizon
+	visualise infalling_g 0 8
+;
+
+show_infalling_BL = show_window (window "Infalling (Boyer-Lindquist)");
+hide_infalling_BL = hide_window (window "Infalling (Boyer-Lindquist)");
+
+infalling_IKC =	
+	set_default_window (window "Infalling (ingoing Kerr)")
+	visualise_on_chart IKC
+	replace_distortions
+	add_horizon
+	visualise infalling_g 0 9.7
+;
+
+show_infalling_IKC = show_window (window "Infalling (ingoing Kerr)");
+hide_infalling_IKC = hide_window (window "Infalling (ingoing Kerr)");
+	
+infalling_OKC =
+	set_default_window (window "Infalling (outgoing Kerr)")
+	visualise_on_chart OKC
+	replace_distortions
+	add_horizon
+	visualise infalling_g 8 20
+;
+
+show_infalling_OKC = show_window (window "Infalling (outgoing Kerr)");
+hide_infalling_OKC = hide_window (window "Infalling (outgoing Kerr)");
+
+p2 = point BL1 (quadruplet 0 1.5 (half pi) 0.1);
+obs2 = observer_at p2;
+
+obs_p = observer_at demo_p;
+spray = null_spray obs_p;
+
+load_null_spray =
+	set_default_window (window "Null spray")
+	visualise_on_chart BL1
+	replace_distortions
+	add_simple_kerr_visualisations
+	for_each spray {visualise_with_colour purple (geodesic ?) 0 2.4}
+;
+
+show_null_spray = show_window (window "Null spray");
+hide_null_spray = hide_window (window "Null spray");
+
+null_evolution =
+	set_default_window (window "Null evolution")
+	visualise_on_chart BL1
+	replace_distortions
+	add_simple_kerr_visualisations
+	visualise_null_evolution_slice obs2 0.2
+	visualise_null_evolution_slice obs2 0.6
+	visualise_with_colour purple (geodesic obs2) 0 0.6
+;
+
+show_null_evolution = show_window (window "Null evolution");
+hide_null_evolution = hide_window (window "Null evolution");
+
+add_all_kerr_charts m a q
+
+ignore
+(
+add_simple_kerr_visualisations
+
+ignore(for_each BL visualise_on_chart)
+ignore(visualise_on_chart BL1)
+visualise_on_chart IKC
+
+add_distortion spherical_distortion
+add_distortion suppress_time
+)

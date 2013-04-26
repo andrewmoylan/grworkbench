@@ -1,0 +1,29 @@
+window = visualisation_window;
+revolve_on_window = {set_camera_revolution ? true};
+stop_revolving_on_window = {set_camera_revolution ? false};
+visualise_on_chart_on_window = {{set_use_of_chart_on_window :? ? false}};
+stop_visualising_on_chart_on_window = {{set_use_of_chart_on_window :? ? true }};
+
+point = point_on_chart;
+vector = tangent_vector_at_point_on_chart;
+components = tangent_vector_components;
+metric = metric_tensor;
+point_of_vector = point_of_tangent_vector;
+
+spherical_distortion = spherical_to_orthonormal_distortion;
+
+geodesic = {{gt = geodesic_tangent :? ?; if_then_else (equal gt nil) nil (point_of_vector gt)}};
+
+connecting_geodesic = {{gt = connecting_geodesic_tangent :? ?; compose point_of_vector gt}};
+connecting_null_geodesic = {{{res = connecting_null_geodesic_result ::? :? ?; compose point_of_vector (second res)}}};
+connecting_null_geodesic_intersection = {{{first (connecting_null_geodesic_result ::? :? ?)}}};
+
+boyer_lindquist_to_ingoing_kerr_coordinates_in_region = {{{{boyer_lindquist_to_kerr_coordinates :::? ::? :? ? false true}}}};
+boyer_lindquist_to_outgoing_kerr_coordinates_in_region = {{{{boyer_lindquist_to_kerr_coordinates :::? ::? :? ? false false}}}};
+ingoing_kerr_coordinates_to_boyer_lindquist_in_region = {{{{boyer_lindquist_to_kerr_coordinates :::? ::? :? ? true true}}}};
+outgoing_kerr_coordinates_to_boyer_lindquist_in_region = {{{{boyer_lindquist_to_kerr_coordinates :::? ::? :? ? true false}}}};
+
+ingoing_kerr_coordinates = {{{kerr_coordinates ::? :? ? true}}};
+ingoing_kerr_coordinates_2 = {{{kerr_coordinates_2 ::? :? ? true}}};
+outgoing_kerr_coordinates = {{{kerr_coordinates ::? :? ? false}}};
+outgoing_kerr_coordinates_2 = {{{kerr_coordinates_2 ::? :? ? false}}};

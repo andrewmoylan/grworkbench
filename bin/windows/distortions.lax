@@ -1,0 +1,79 @@
+linear_transformation_distortion = {linear_distortion ? (quadruplet 0 0 0 0)};
+
+translation_distortion =
+	linear_distortion
+		(	
+			quadruplet
+				(quadruplet 1 0 0 0)
+				(quadruplet 0 1 0 0)
+				(quadruplet 0 0 1 0)
+				(quadruplet 0 0 0 1)
+		)
+;
+
+suppress_time =
+	linear_transformation_distortion
+		(
+			quadruplet
+				(quadruplet 0 0 0 1)
+				(quadruplet 1 0 0 0)
+				(quadruplet 0 1 0 0)
+				(quadruplet 0 0 1 0)
+		)
+;
+	
+scale_time =
+{
+	linear_transformation_distortion
+		(
+			quadruplet
+				(quadruplet ? 0 0 0)
+				(quadruplet 0 1 0 0)
+				(quadruplet 0 0 1 0)
+				(quadruplet 0 0 0 1)
+		)
+};
+
+negative_r =
+	linear_transformation_distortion
+		(
+			quadruplet
+				(quadruplet 1 0 0 0)
+				(quadruplet 0 -1 0 0)
+				(quadruplet 0 0 1 0)
+				(quadruplet 0 0 0 1)
+		)
+;
+
+suppress_x =
+	linear_transformation_distortion
+		(
+			quadruplet
+				(quadruplet 1 0 0 0)
+				(quadruplet 0 0 0 1)
+				(quadruplet 0 0 1 0)
+				(quadruplet 0 1 0 0)
+		)
+;
+	
+suppress_y =
+	linear_transformation_distortion
+		(
+			quadruplet
+				(quadruplet 1 0 0 0)
+				(quadruplet 0 1 0 0)
+				(quadruplet 0 0 0 1)
+				(quadruplet 0 0 1 0)
+		)
+;
+	
+isometric_projection =
+	linear_transformation_distortion
+		(
+			list 4
+				(list 3 1 1 1)
+				(list 3 1 -1 1)
+				(list 3 -1 1 1)
+				(list 3 -1 -1 1)
+		)
+;

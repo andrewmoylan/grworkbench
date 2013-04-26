@@ -1,0 +1,4 @@
+Make both threads close on exit.
+
+Throw exceptions, not strings.
+

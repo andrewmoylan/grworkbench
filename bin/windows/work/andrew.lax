@@ -1,0 +1,8 @@
+C = schwarzschild 1;
+
+test = for_each numeric_range
+{
+1
+};
+
+visualise_on_chart C

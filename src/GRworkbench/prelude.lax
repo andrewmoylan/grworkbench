@@ -1,0 +1,16 @@
+set_dynamic_variable "grwb::old" (evaluated current_directory)
+
+change_directory "../lax"
+include_file "prelude.lax"
+
+change_directory (get_dynamic_variable "grwb::old")
+include_file "builtins.lax"
+include_file "standard.lax"
+include_file "colours.lax"
+include_file "defaults.lax"
+include_file "differential_geometry.lax"
+include_file "distortions.lax"
+include_file "charts.lax"
+include_file "visualisations.lax"
+include_file "help.lax"
+include_file "start_work.lax"

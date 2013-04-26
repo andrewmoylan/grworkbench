@@ -1,0 +1,25 @@
+derivative_with_respect_to = eager
+{{
+	d = derivative_with_respect_to x;
+	x = :?;
+	h = head ?;
+	lh = left h;
+	hh = head h;
+	hhh = head hh;
+	thh = tail hh;
+	th = tail h;
+	t = tail ?;
+	ifs
+		(and (equal (left ?) K) (is_real (right ?))) {0}
+		(equal ? x) {1}
+		(equal h {sine}) {multiply (d t ?) (cosine (t ?))}
+		(equal h {cosine}) {multiply (d t ?) (negate (sine (t ?)))}
+		(equal h {negate}) {multiply (d t ?) (negate (t ?))}
+		(equal hh {multiply}) {add (multiply (d t ?) (th ?)) (multiply (d th ?) (t ?))}
+		(equal hh {add}) {add (d th ?) (d t ?)}
+		(equal hhh {if_then_else}) {if_then_else (thh ?) (d th ?) (d t ?)}
+		true {show ? multiply (d (h ?) (t ?)) (d t ?)}
+		nil
+}};
+
+derivative = derivative_with_respect_to I;

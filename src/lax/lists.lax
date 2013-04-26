@@ -1,0 +1,207 @@
+first = {? 0};
+
+rest =
+{{
+	:? (increment ?)
+}};
+
+second = {? 1};
+third = {? 2};
+fourth = {? 3};
+
+last = {? (decrement (list_size ?))};
+
+singlet = list 1;
+doublet = list 2;
+triplet = list 3;
+quadruplet = list 4;
+
+pair = doublet;
+
+empty_list = list 0;
+
+image_under =
+{
+	{
+		eager
+		{
+			f = ::?;
+			l = :?;
+			i = ?;
+			x = l i;
+			if_then_else (equal x nil) nil (f x)
+		}
+	}
+};
+
+list_size = eager
+{
+	if_then_else
+		(equal (first ?) nil)
+		0
+		(increment (list_size (rest ?)))
+};
+
+evaluated_list =
+eager
+{
+	l = ?;
+	detail =
+	eager
+	{
+		eager
+		{
+			partial = :?;
+			unevaluated_rest = ?;
+			front = first unevaluated_rest;
+			if_then_else
+				(equal front nil)
+				partial
+				(
+					detail
+						(partial (evaluated front))
+						(rest unevaluated_rest)
+				)
+		}
+	};
+	detail (list (list_size l)) l
+};
+
+zip_with = eager_n 3
+{
+	f = ?;
+	{{
+		l1 = :?;
+		l2 = ?;
+		{
+			if_then_else
+				(or (equal (l1 ?) nil) (equal (l2 ?) nil))
+				nil
+				(f (l1 ?) (l2 ?))
+		}
+	}}
+};
+
+for_each = 
+eager
+{
+	eager
+	{
+		l = :?;
+		f = ?;
+		x = f (first l);
+		if_then_else
+			(equal (second l) nil)
+			x
+			(x (for_each (rest l) f))
+	}
+};
+
+show_list_with = eager_n 2
+{
+	show = ?;
+	{
+		detail =
+		{
+			if_then_else
+				(equal (first ?) nil)
+				I
+				(
+					show (first ?)
+					if_then_else
+						(equal (first (rest ?)) nil)
+						I
+						(show_string ", ")
+					detail (rest ?)
+				)
+		};
+		show_string "["
+		detail ?
+		show_string "]"
+	}
+};
+
+show_list = show_list_with show;
+
+showed_list =
+{
+	show_list ? ?
+};
+
+show_list_of_rank =
+{
+	rank = ?;
+	repeated_compose rank show_list_with show
+};
+
+join_lists =
+{{
+	l1 = :?;
+	l2 = ?;
+	n = list_size l1;
+	eager
+	{
+		if_then_else
+			(less_than ? 0)
+			nil
+			(
+				if_then_else
+					(less_than ? n)
+					(l1 ?)
+					(l2 (subtract ? n))
+			)
+	}
+}};
+
+compose_list =
+{
+	if_then_else
+		(equal (first ?) nil)
+		I
+		(compose (first ?) (compose_list (rest ?)))
+};
+
+constant_list =
+{{
+	n = :?;
+	x = ?;
+	{
+		if_then_else
+			(or (less_than ? 0) (greater_than_or_equal ? n))
+			nil
+			x
+	}
+}};
+
+fold_with =
+eager
+{
+	eager
+	{
+		f = :?;
+		identity = ?;
+		{
+			if_then_else
+				(equal (first ?) nil)
+				identity
+				(f (first ?) (fold_with f identity (rest ?)))
+		}
+	}
+};
+
+sum = fold_with add 0;
+product = fold_with multiply 1;
+union = fold_with join_lists nil;
+
+rotate_list =
+{
+	l = ?;
+	eager
+	{
+		ifs
+			(equal ? 0) (last l)
+			(greater_than_or_equal ? (list_size l)) nil
+			true (l (decrement ?))
+			nil
+	}
+};

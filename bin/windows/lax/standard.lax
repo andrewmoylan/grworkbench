@@ -1,0 +1,87 @@
+undefined = throw_exception "Referenced undefined identifier";
+
+eager_n_with = eager
+{
+	evaluated = ?;
+	eager
+	{
+		n = ?;
+		if_then_else
+			(equal n 1)
+			(eager_with evaluated)
+			{
+				f = ?;
+				{
+					eager_n_with evaluated (decrement n) (f (evaluated ?))
+				}	
+			}
+	}
+};
+
+eager_n = eager_n_with evaluated;
+
+dump =
+{
+	show_string ":"
+	show ?
+	show_new_line
+};
+
+ignore = K I;
+
+ignore_until =
+{
+	token = ?;
+	{
+		if_then_else
+			(equal ? token)
+			I
+			(ignore_until token)
+	}
+};
+
+end_ignore = {end_ignore};
+begin_ignore = ignore_until end_ignore;
+
+eager_with =
+{{
+	evaluated = :?;
+	f = ?;
+	{f (evaluated ?)}
+}};
+
+eager = eager_with evaluated;
+
+increment = eager (add 1);
+decrement = eager (add -1);
+
+compose = eager_n 2
+{{
+	a = :?;
+	b = ?;
+	{a (b ?)}
+}};
+
+repeated_compose = eager
+{
+	eager
+	{
+		n = :?;
+		f = ?;
+		if_then_else (equal n 1) f (compose f (repeated_compose (decrement n) f))
+	}
+};
+
+ifs = eager
+{
+if_then_else (equal ? nil) nil
+	{
+	returner = {if_then_else (equal ? nil) :? {returner}};
+	if_then_else :? returner ifs
+	}
+};
+
+new_line = "
+";
+
+show_new_line = show_string new_line;

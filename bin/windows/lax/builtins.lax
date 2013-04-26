@@ -1,0 +1,7 @@
+not = logical_not;
+or = {{if_then_else :? true ?}};
+and = {{if_then_else (not :?) false ?}};
+get = get_dynamic_variable;
+set = set_dynamic_variable;
+start_logging = set_logging true;
+stop_logging = set_logging false;

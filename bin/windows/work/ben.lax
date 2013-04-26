@@ -1,0 +1,287 @@
+m = 1;
+a = 0;
+q = 0;
+
+C = boyer_lindquist_2_in_region m a q 1;
+
+setup =
+	add_all_kerr_charts m a q
+	ignore(	for_each (pair 1 2) {visualise_on_chart (boyer_lindquist_in_region m a q ?)} )
+	ignore( visualise_on_chart C ) 
+	add_kerr_event_horizon m a q
+	add_distortion spherical_distortion
+	add_distortion suppress_time
+;
+
+do_something = 
+	show_string "something..."
+;
+
+double_range =
+{{{
+	inc = ::?;
+	min = :?;
+	max = ?;
+	range = subtract max min;
+	n = divide range inc;
+	z = integer_range 0 n;
+	scaled_z = image_under (multiply inc) z;
+	done = image_under (add min) scaled_z;
+	done
+}}};
+
+minus =
+	multiply -1
+;
+
+really_far = 200;
+
+r_coord =
+{
+	(chart_map C ?) 1
+};
+
+push_ray = 
+{{
+	initial_vector = ?;
+	distance = :?;
+
+	g = geodesic initial_vector;
+	r = (r_coord (g distance));
+
+	if_then_else
+		(or (equal nil (g distance)) (equal nil r))
+		(
+		  visualise_with_colour blue g 0 distance
+		  show_string "at current distance, g returns nil"
+		  nil
+		)
+		(
+		  if_then_else
+			(less_than really_far r)
+			(
+			  visualise_with_colour yellow g 0 distance
+			  geodesic_tangent initial_vector distance
+			)
+			(
+			  push_ray (add distance r) initial_vector
+			)
+		)			
+}};
+
+tetrad_components = 
+{{
+	image_under (metric ?) :?
+}};
+
+smart_basis =
+{
+	clist = components C ?;
+	time = normalise(tangent_vector_at_point_on_chart ? C (list 4 1 0 0 0));
+	radius = orthonormalise_vector_with_respect_to
+			(tangent_vector_at_point_on_chart ? C (list 4 0 1 0 0))
+			time;
+	theta = orthonormalise_vector_with_respect_to
+			(
+			 orthonormalise_vector_with_respect_to
+				(tangent_vector_at_point_on_chart ? C (list 4 0 0 1 0))
+				time
+			)
+			radius;
+	phi = orthonormalise
+		(
+		  orthonormalise
+			(
+			  orthonormalise
+				(
+				  tangent_vector_at_point_on_chart ? C (list 4 0 0 0 1)
+				)
+				time
+			)
+			radius
+		)
+		theta;
+	list 4 time radius theta phi
+};
+
+natural_basis =
+{{
+	p = ?;
+	c = :?;
+	dimensions = list_size (chart_map c p);
+
+	natural_vector =	
+	{
+		tangent_vector_at_point_on_chart 
+			p c (unit_components ? dimensions)
+	};
+	
+	detail =
+	{
+		basis_so_far = ?;
+		dim = list_size (basis_so_far);
+		next_vector = orthonormalise_vector_with_respect_to_vectors
+				(natural_vector dim)
+				basis_so_far;
+		new_basis = join_lists
+				basis_so_far
+				(singlet next_vector);
+		if_then_else
+			(equal dimensions (list_size new_basis))
+			new_basis
+			(detail	new_basis)
+	};
+	detail empty_list
+}};
+
+clever_basis = 
+	natural_basis C
+;
+
+convert_to_degrees =
+	multiply (divide 180 pi)
+;
+
+angle =
+{
+	p = (point_of_vector ?); 
+	angle1 = (chart_map C p) 3;
+	basis = evaluated(evaluated_list (clever_basis p));
+	angle2 = arc_tangent_2 (metric ? (basis 3)) (metric ? (basis 1));
+
+	add (add angle1 angle2) init_angle
+};
+
+show_axes =
+{
+	basis = evaluated(evaluated_list (clever_basis ?));
+
+	visualise_with_colour aquamarine (geodesic (basis 1)) 0 1
+	visualise_with_colour aquamarine (geodesic (basis 2)) 0 1
+	visualise_with_colour aquamarine (geodesic (basis 3)) 0 1
+};
+
+show_in_degrees = 
+{
+	if_then_else
+		(less_than ? (minus pi))
+		(show_in_degrees (add ? (multiply 2 pi)))
+		(
+		 if_then_else
+			(greater_than ? pi)
+			(show_in_degrees (subtract ? (multiply 2 pi)))
+			(
+				show (convert_to_degrees ?) show_string " d  "	
+			)
+		)
+};
+
+show_angle =
+{
+	show_in_degrees (angle ?)
+};
+
+trace_ray =
+{
+	initangle = angle ?;
+	show_string "Init. " show_angle ?	
+	eager {
+		if_then_else (equal ? nil)
+			(show_string "Consumed.")
+			(show_string "Fin. " show_angle ? show_axes (point_of_vector ?)
+			 show_string "Def. " show_in_degrees (subtract initangle (angle ?))
+			)
+	} (push_ray really_far ?)
+	show_new_line
+};
+
+init_angle = (half pi);
+
+plot_more_lines =
+{
+	p = point C (quadruplet 0 really_far (half pi) init_angle);
+	v = observer_at p;
+	w = geodesic v;
+
+	e = orthonormal_tangent_basis v;
+
+	x_max = multiply (divide pi 180) 2;
+	x_min = minus x_max;
+	x_inc = divide (subtract x_max x_min) 2;
+
+	y_max = multiply x_max 0.75;
+	y_min = minus y_max;
+	y_inc = divide (subtract y_max y_min) 2;
+
+	visualise_with_colour white w -15 0
+
+	show_string "Prepared to plot more lines" show_new_line show_new_line
+
+	for_each (double_range y_inc y_min y_max)
+	{
+		for_each (double_range x_inc x_min x_max)
+		{
+			planelike = add_vectors
+					(multiply_vector (minus (cosine ?)) (e 3))
+					(multiply_vector (minus (sine ?)) (e 1));
+			spacelike = add_vectors
+					(multiply_vector (cosine :?) (planelike))
+					(multiply_vector (sine :?) (e 2));
+			null = add_vectors spacelike (e 0);
+			show (magnitude null)
+		
+			trace_ray null
+		}	
+	}
+
+} I;
+
+plot_warped_grid =
+{
+	p1 = point C (quadruplet 0 200 (half pi) (half pi));
+	p2 = point C (quadruplet 0 200 (half pi) pi);
+	v1 = observer_at p1;
+	v2 = observer_at p2;
+	a = orthonormal_tangent_basis v1;
+	b = orthonormal_tangent_basis v2;
+
+	wavefront1 =
+	{{
+		spacelike = add_vectors
+				(multiply_vector (minus (cosine ?)) (a 3))
+				(multiply_vector (sine ?) (a 1));
+		null = add_vectors spacelike (a 0);
+		(geodesic null) :?
+	}};
+	wavefront2 =
+	{{
+		spacelike = add_vectors
+				(multiply_vector (minus (cosine ?)) (b 3))
+				(multiply_vector (sine ?) (b 1));
+		null = add_vectors spacelike (b 0);
+		(geodesic null) :?
+	}};
+
+	max = divide pi 30;
+	min = minus max;
+
+	for_each (double_range 0.5 180 205)
+	{
+		visualise_with_colour white (wavefront1 ?) min max
+		visualise_with_colour white (wavefront2 ?) min max
+	}
+
+} I;
+
+
+
+
+set_default_curve_samples 43
+
+
+setup
+
+plot_more_lines
+
+
+show_new_line show_string "That's all folks" show_new_line

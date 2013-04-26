@@ -1,0 +1,90 @@
+sphere_surface = //eager_n 2
+{{
+	t = :?;
+	r = ?;
+	//eager_with evaluated_list
+	//eager
+	{
+		theta = first ?;
+		phi = second ?;
+		quadruplet t r theta phi
+	}
+}};
+
+line_of_latitude_at_time = eager_n 3
+{{{
+	t = ::?;
+	r = :?;
+	theta = ?;
+	{quadruplet t r theta ?}
+}}};
+
+line_of_latitude = line_of_latitude_at_time 0;
+
+line_of_longtitude_at_time = eager_n 3
+{{{
+	t = ::?;
+	r = :?;
+	phi = ?;
+	{quadruplet t r ? phi}
+}}};
+
+line_of_longtitude = line_of_longtitude_at_time 0;
+
+visualise_null_evolution_slice =
+{{
+	near_zero = 0.05;
+	near_pi = subtract pi near_zero;
+	visualise_surface (null_evolution_slice :? ?) (pair near_zero near_pi) (pair 0 (multiply 2 pi))
+}};
+
+plot_with_colour =
+{{{{
+	colour = :::?;
+	f = ::?;
+	a = :?;
+	b = ?;
+	g =
+	{
+		if_then_else  (inequal (f ?) nil)
+			(pair ? (f ?))
+			nil
+	};
+	visualise_coord_with_colour colour g a b
+}}}};
+
+plot = plot_with_colour white;
+
+stop_plotting =
+{
+	f = ?;
+	g =
+	{
+		if_then_else  (inequal (f ?) nil)
+			(pair ? (f ?))
+			nil
+	};
+	stop_visualising g
+};
+
+freeze_plot =
+{
+	f = ?;
+	g =
+	{
+		if_then_else  (inequal (f ?) nil)
+			(pair ? (f ?))
+			nil
+	};
+	freeze_visualisation g
+};
+
+plot_surface =
+{{{
+	f = ::?;
+	a = :?;
+	b = ?;
+	visualise_coordinate_surface {x = first ?; y = second ?; triplet x y (f x y)} a b
+}}};
+
+include_file "kerr_visualisations.lax"

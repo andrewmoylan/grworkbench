@@ -1,0 +1,31 @@
+m = kerr_mass;
+a = near_critical_kerr_a;
+
+demo_p = point (near_critical_kerr 1) (quadruplet 0 3 (half pi) 3);
+demo_v = vector demo_p (near_critical_kerr 1) (quadruplet 1 -0.05 0.05 0.15);
+demo_g = geodesic demo_v;
+
+replace_distortions = 
+	remove_distortions
+	add_distortion spherical_distortion
+	add_distortion suppress_time
+;	
+
+demo =
+	set_default_window (window "Demo")
+	visualise_on_chart (near_critical_kerr 1)
+	revolve
+	replace_distortions
+	add_kerr_visualisations m a 0
+	visualise demo_g 0 400
+;
+
+start =
+	set_default_window (window "KerrFest")
+	visualise_on_chart (near_critical_kerr 1)
+	replace_distortions
+	add_kerr_event_horizon kerr_mass near_critical_kerr_a
+	add_kerr_ergosphere kerr_mass near_critical_kerr_a
+;
+
+walkthrough = include_file "kerrfest_presentation_walkthrough.lax";

@@ -1,0 +1,236 @@
+kerr_ergosphere_line_of_longtitude_at_time = eager_n 4
+{{{{{
+	t = ::::?;
+	m = :::?;
+	a = ::?;
+	e = :?;
+	phi = ?;
+	{quadruplet t (kerr_ergosphere_radius m a e ?) ? phi}
+}}}}};
+
+kerr_ergosphere_line_of_longtitude = kerr_ergosphere_line_of_longtitude_at_time 0;
+
+kerr_event_horizon_radius = eager_n 2
+{{{
+	m = ::?;
+	a = :?;
+	Q = ?;
+	m2 = square m;
+	a2 = square a;
+	e2 = square Q;
+	if_then_else
+		(greater_than (add a2 e2) m2)
+		(throw_exception "Kerr has no event horizon with the given parameters")
+		add m (square_root (subtract m2 (add a2 e2)))
+}}};
+
+kerr_inner_horizon_radius = eager_n 2
+{{{
+	m = ::?;
+	a = :?;
+	Q = ?;
+	m2 = square m;
+	a2 = square a;
+	e2 = square Q;
+	if_then_else
+		(greater_than (add a2 e2) m2)
+		(throw_exception "Kerr has no inner event horizon with the given parameters")
+		subtract m (square_root (subtract m2 (add e2 a2)))
+}}};
+
+kerr_event_horizon_surface_at_time = eager_n 3
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	sphere_surface t (kerr_event_horizon_radius m a Q)
+}}}};
+
+kerr_event_horizon_surface = kerr_event_horizon_surface_at_time 0;
+
+kerr_inner_horizon_surface_at_time = eager_n 3
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	sphere_surface t (kerr_inner_horizon_radius m a Q)
+}}}};
+
+kerr_inner_horizon_surface = kerr_inner_horizon_surface_at_time 0;
+
+kerr_ergosphere_radius = eager_n 3
+{{{{
+	m = :::?;
+	a = ::?;
+	Q = :?;
+	theta = ?;
+	m2 = square m;
+	a2 = square a;
+	Q2 = square Q;
+	if_then_else
+		(or (greater_than_or_equal (add Q2 a2) m2)  (equal a2 0))
+		(throw_exception "Kerr has no ergosphere with the given parameters")
+		(add m (square_root (subtract m2 (add Q2 (multiply a2 (square (cosine theta)))))))
+}}}};
+
+kerr_ergosphere_surface_at_time = eager_n 3
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	eager_with evaluated_list
+	{
+		theta = first ?;
+		phi = second ?;
+		quadruplet t (kerr_ergosphere_radius m a Q theta) theta phi
+	}
+}}}};
+
+kerr_ergosphere_surface = kerr_ergosphere_surface_at_time 0;
+
+add_kerr_event_horizon_at_time =
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	delta = divide pi 8;
+	
+	visualise_coordinate_surface (kerr_event_horizon_surface_at_time t m a Q) (pair near_zero near_pi) (pair 0 (multiply 2 pi))
+	
+	for_each (numeric_range delta delta (subtract pi (multiply 0.5 delta)))
+	{
+		visualise_coord_with_colour navy (line_of_latitude_at_time t (kerr_event_horizon_radius m a Q) ?) 0 (multiply 2 pi)
+	}
+	
+	for_each (numeric_range delta 0 (subtract (multiply pi 2) (half delta)))
+	{
+		visualise_coord_with_colour navy (line_of_longtitude_at_time t (kerr_event_horizon_radius m a Q) ?) near_zero near_pi
+	}
+}}}};
+
+add_kerr_inner_horizon_at_time =
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	delta = divide pi 8;
+	
+	visualise_coordinate_surface (kerr_inner_horizon_surface_at_time t m a Q) (pair near_zero near_pi) (pair 0 (multiply 2 pi))
+	
+	for_each (numeric_range delta delta (subtract pi (multiply 0.5 delta)))
+	{
+		visualise_coord_with_colour navy (line_of_latitude_at_time t (kerr_inner_horizon_radius m a Q) ?) 0 (multiply 2 pi)
+	}
+	
+	for_each (numeric_range delta 0 (subtract (multiply pi 2) (half delta)))
+	{
+		visualise_coord_with_colour navy (line_of_longtitude_at_time t (kerr_inner_horizon_radius m a Q) ?) near_zero near_pi
+	}
+}}}};
+
+add_kerr_zero_sphere_at_time =
+{
+	t = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	delta = divide pi 8;
+	
+	visualise_coordinate_surface (sphere_surface 0 0) (pair near_zero near_pi) (pair 0 (multiply 2 pi))
+	
+	for_each (numeric_range delta delta (subtract pi (half delta)))
+	{
+		visualise_coord_with_colour navy (line_of_latitude_at_time t 0 ?) 0 (multiply 2 pi)
+	}
+	
+	for_each (numeric_range delta 0 (subtract (multiply pi 2) (half delta)))
+	{
+		visualise_coord_with_colour navy (line_of_longtitude_at_time t 0 ?) near_zero near_pi
+	}
+};
+
+add_kerr_event_horizon = add_kerr_event_horizon_at_time 0;
+
+add_kerr_ergosphere_at_time =
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	delta = divide pi 8;
+	
+	visualise_coordinate_surface (kerr_ergosphere_surface_at_time t m a Q) (pair near_zero near_pi) (pair 0 (multiply 2 pi))
+	
+	for_each (numeric_range delta delta (subtract pi (half delta)))
+	{
+		visualise_coord_with_colour navy (line_of_latitude_at_time t (kerr_ergosphere_radius m a Q ?) ?) 0 (multiply 2 pi)
+	}
+	
+	for_each (numeric_range delta 0 (subtract (multiply pi 2) (half delta)))
+	{
+		visualise_coord_with_colour navy (kerr_ergosphere_line_of_longtitude_at_time t m a Q ?) near_zero near_pi
+	}
+}}}};
+
+add_kerr_ergosphere = add_kerr_ergosphere_at_time 0;
+
+remove_kerr_ergosphere_at_time =
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	delta = divide pi 8;
+	
+	stop_visualising_coordinate_surface (kerr_ergosphere_surface_at_time t m a Q)
+	
+	for_each (numeric_range delta delta (subtract pi (half delta)))
+	{
+		stop_visualising_coord (line_of_latitude_at_time t (kerr_ergosphere_radius m a Q ?) ?)
+	}
+	
+	for_each (numeric_range delta 0 (subtract (multiply pi 2) (half delta)))
+	{
+		stop_visualising_coord (kerr_ergosphere_line_of_longtitude_at_time t m a Q ?)
+	}
+}}}};
+
+remove_kerr_ergosphere = remove_kerr_ergosphere_at_time 0;
+
+add_kerr_visualisations_at_time =
+{{{{
+	t = :::?;
+	m = ::?;
+	a = :?;
+	Q = ?;
+	near_zero = 0.02;
+	near_pi = subtract pi near_zero;
+	if_then_else (greater_than_or_equal (square m) (add (square a) (square Q)))
+		(add_kerr_event_horizon_at_time t m a Q)
+		I
+	if_then_else (and (greater_than (subtract (square m) (square Q)) (square a)) (inequal (add (square a) (square Q)) 0))
+		(
+			add_kerr_inner_horizon_at_time t m a Q
+			(
+				if_then_else (inequal a 0)
+					(add_kerr_ergosphere_at_time t m a Q)
+					I
+			)
+		)
+		I
+	add_kerr_zero_sphere_at_time 0
+}}}};
+
+add_kerr_visualisations = add_kerr_visualisations_at_time 0;

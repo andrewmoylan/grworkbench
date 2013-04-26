@@ -1,0 +1,19 @@
+white = triplet 1 1 1;
+black = triplet 0 0 0;
+red = triplet 1 0 0;
+green = triplet 0 1 0;
+blue = triplet 0 0 1;
+yellow = triplet 1 1 0;
+purple = triplet 1 0 1;
+cyan = triplet 0 1 1;
+
+darker_colour = image_under (multiply 0.8);
+
+grey = darker_colour white;
+maroon = darker_colour red;
+dark_green = darker_colour green;
+navy = darker_colour blue;
+olive = darker_colour yellow;
+dark_purple = darker_colour purple;
+teal = darker_colour cyan;
+

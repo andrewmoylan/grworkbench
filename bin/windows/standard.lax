@@ -1,0 +1,23 @@
+optional_compose =
+{{
+	f = :?;
+	g = ?;
+	{
+		if_then_else (equal (g ?) nil)
+			nil
+			(f (g ?))
+	}
+}};
+
+apply_either =
+{{
+	f = :?;
+	g = ?;
+	{
+		if_then_else (inequal (f ?) nil)
+			(f ?)
+			(g ?)
+	}
+}};
+
+apply_any = fold_with apply_either nil;

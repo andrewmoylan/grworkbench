@@ -1,0 +1,1696 @@
+
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> interferometer_demo
+=> interferometer_demo
+
+Parsing interferometer_demo.lax ...
+Defined C
+Defined C2
+Defined coordinate_origin
+Defined p
+Defined coordinate_direction
+Defined beam_splitter_tangent
+Defined beam_splitter
+Defined radial_mirror_direction
+Defined theta_mirror_direction
+Defined phi_mirror_direction
+Defined directions
+Defined data
+Defined affine_length
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> s1
+=> s1
+nil-> I
+
+>> s2
+=> s2
+-> I
+
+>> s3
+=> s3
+-> I
+
+>> s4
+=> s4
+Updated visualisation parameters.
+-> I
+
+>> s5
+=> s5
+Updated visualisation parameters.
+-> I
+
+>> s6
+=> s6
+-> I
+
+>> s7
+=> s7
+Exception:	Couldn't remove distortion: it was not attached to that visualisation window
+
+>> s8
+=> s8
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> demo
+=> demo
+
+Parsing demo.lax ...
+Defined black_hole_mass
+Defined black_hole_ang_m
+Defined black_hole_charge
+Defined chart
+Defined event
+Defined observer
+Defined worldline
+Defined prepare_spacetime
+Defined depict_horizon
+Defined trace_observer_worldline
+Defined trace_various_null_rays
+Defined a
+Defined b
+Observer's worldline tangent vector has magnitude -1 (ie. is timelike)
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+Exception:	Invalid call to const double value::get_real() const: value was not a double.
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> start
+=> start
+Exception:	That chart is already being visualised on that window.
+
+>> s1
+=> s1
+nil-> I
+
+>> s2
+=> s2
+-> I
+
+>> s3
+=> s3
+-> I
+
+>> s4
+=> s4
+Updated visualisation parameters.
+-> I
+
+>> s5
+=> s5
+Updated visualisation parameters.
+-> I
+
+>> s6
+=> s6
+-> I
+
+>> s7
+=> s7
+-> I
+
+>> s8
+=> s8
+-> I
+
+>> s9
+=> s9
+-> I
+
+>> s10
+=> s10
+-> I
+
+>> s11
+=> s11
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> start
+=> start
+Exception:	Invalid call to const double value::get_real() const: value was not a double.
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+Exception:	Invalid call to const double value::get_real() const: value was not a double.
+
+>> add_kerr_event_horizon kerr_mass near_critical_kerr_a 0
+=> add_kerr_event_horizon kerr_mass near_critical_kerr_a 0
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> s1
+=> s1
+nil-> I
+
+>> s2
+=> s2
+-> I
+
+>> s3
+=> s3
+-> I
+
+>> s3
+=> s3
+Updated visualisation parameters.
+-> I
+
+>> s4
+=> s4
+Updated visualisation parameters.
+-> I
+
+>> s5
+=> s5
+Updated visualisation parameters.
+-> I
+
+>> g_obs 5
+=> g_obs 5
+-> nil
+
+>> obs
+=> obs
+-> [tangent vector]
+
+>> geodesic obs
+=> geodesic obs
+-> S (S (S (K if_then_else) (S (S (K equal) (S (S (K geodesic_tangent) (K obs)) I)) (K nil))) (K nil)) (S (K point_of_vector) (S (S (K geodesic_tangent) (K obs)) I))
+
+>> geodesic obs 1
+=> geodesic obs 1
+-> nil
+
+>> geodesic obs 0
+=> geodesic obs 0
+-> [point]
+
+>> geodesic obs 1
+=> geodesic obs 1
+-> nil
+
+>> s6
+=> s6
+-> I
+
+>> s7
+=> s7
+-> I
+
+>> s8
+=> s8
+-> I
+
+>> s9
+=> s9
+-> I
+
+>> s10
+=> s10
+-> I
+
+>> s11
+=> s11
+-> I
+
+>> s12
+=> s12
+-> I
+
+>> s13
+=> s13
+-> I
+
+>> s14
+=> s14
+-> I
+
+>> s15
+=> s15
+-> I
+
+>> g2 = geodesic obs2;
+Defined g2
+
+>> g2 0
+=> g2 0
+-> [point]
+
+>> gw 1
+Exception:	Undefined identifier: gw.
+
+>> g2 1
+=> g2 1
+-> nil
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> s1
+Exception:	Undefined identifier: s1.
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> g
+Exception:	Undefined identifier: g.
+
+>> g1
+Exception:	Undefined identifier: g1.
+
+>> gobs
+Exception:	Undefined identifier: gobs.
+
+>> g_obs
+=> g_obs
+-> S (S (S (K if_then_else) (S (S (K equal) (S (S (K geodesic_tangent) (K obs)) I)) (K nil))) (K nil)) (S (K point_of_vector) (S (S (K geodesic_tangent) (K obs)) I))
+
+>> g_obs 0
+=> g_obs 0
+Exception: (unknown type)
+>> g_obs 1
+=> g_obs 1
+Exception: (unknown type)
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> interferometer_demo
+=> interferometer_demo
+
+Parsing interferometer_demo.lax ...
+Defined C
+Defined C2
+Defined coordinate_origin
+Defined p
+Defined coordinate_direction
+Defined beam_splitter_tangent
+Defined beam_splitter
+Defined radial_mirror_direction
+Defined theta_mirror_direction
+Defined phi_mirror_direction
+Defined directions
+Defined data
+Defined affine_length
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> start
+=> start
+Exception: (unknown type)
+>> s1
+=> s1
+Exception: (unknown type)
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> interferometer_demo
+=> interferometer_demo
+
+Parsing interferometer_demo.lax ...
+Defined C
+Defined C2
+Defined coordinate_origin
+Defined p
+Defined coordinate_direction
+Defined beam_splitter_tangent
+Defined beam_splitter
+Defined radial_mirror_direction
+Defined theta_mirror_direction
+Defined phi_mirror_direction
+Defined directions
+Defined data
+Defined affine_length
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+Exception: (unknown type)
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerr
+=> kerr
+-> [chart]
+
+>> near_critical_kerr
+=> near_critical_kerr
+-> [chart]
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> g_obs
+Exception:	Undefined identifier: g_obs.
+
+>> gobs
+Exception:	Undefined identifier: gobs.
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> g_obs
+=> g_obs
+-> S (S (S (K if_then_else) (S (S (K equal) (S (S (K geodesic_tangent) (K obs)) I)) (K nil))) (K nil)) (S (K point_of_vector) (S (S (K geodesic_tangent) (K obs)) I))
+
+>> g_obs 1
+=> g_obs 1
+-> nil
+
+>> g_obs 0
+=> g_obs 0
+-> [point]
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> obs
+=> obs
+-> [tangent vector]
+
+>> metric
+=> metric
+-> metric_tensor
+
+>> metric obs
+=> metric obs
+-> metric_tensor obs
+
+>> metric obs obs
+=> metric obs obs
+-> -0.333333333333333
+
+>> metric obs obs2
+=> metric obs obs2
+-> -2.25670742279885
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> chart_map C
+=> chart_map C
+-> chart_map C
+
+>> chart_map C p
+=> chart_map C p
+-> list 4 0 3 1.5707963267949 3
+
+>> chart_map C2 p
+=> chart_map C2 p
+-> nil
+
+>> C2
+=> C2
+-> [chart]
+
+>> add_all_kerr_charts kerr_mass near_critical_kerr_a 0
+=> add_all_kerr_charts kerr_mass near_critical_kerr_a 0
+-> I
+
+>> chart_map C2 p
+=> chart_map C2 p
+-> nil
+
+>> g_obs
+=> g_obs
+-> S (S (S (K if_then_else) (S (S (K equal) (S (S (K geodesic_tangent) (K obs)) I)) (K nil))) (K nil)) (S (K point_of_vector) (S (S (K geodesic_tangent) (K obs)) I))
+
+>> g_obs 1
+=> g_obs 1
+-> [point]
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> start
+=> start
+-> I
+
+>> demo
+=> demo
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> s1 
+Exception:	Undefined identifier: s1.
+
+>> s1
+Exception:	Undefined identifier: s1.
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+-> I
+
+>> s1
+=> s1
+list 4 0 3 1.5707963267949 6.14159265358979-> I
+
+>> s2
+=> s2
+-> I
+
+>> s3
+=> s3
+-> I
+
+>> s4
+=> s4
+Updated visualisation parameters.
+-> I
+
+>> s5
+=> s5
+Updated visualisation parameters.
+-> I
+
+>> s6
+=> s6
+-> I
+
+>> s7
+=> s7
+-> I
+
+>> s8
+=> s8
+-> I
+
+>> s9
+=> s9
+-> I
+
+>> s10
+=> s10
+-> I
+
+>> s11
+=> s11
+-> I
+
+>> s12
+=> s12
+-> I
+
+>> s13
+=> s13
+-> I
+
+>> s14
+=> s14
+-> I
+
+>> s15
+=> s15
+-> I
+
+>> s16
+=> s16
+-> I
+
+>> s17
+=> s17
+-> I
+
+>> s18
+=> s18
+-> I
+
+>> s19
+=> s19
+-> I
+
+>> s20
+=> s20
+-> I
+
+>> s21
+=> s21
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+Defined s_all
+-> I
+
+>> s_all
+=> s_all
+list 4 0 3 1.5707963267949 6.14159265358979Updated visualisation parameters.
+Updated visualisation parameters.
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> interferometer_demo
+=> interferometer_demo
+
+Parsing interferometer_demo.lax ...
+Defined C
+Defined C2
+Defined coordinate_origin
+Defined p
+Defined coordinate_direction
+Defined beam_splitter_tangent
+Defined beam_splitter
+Defined radial_mirror_direction
+Defined theta_mirror_direction
+Defined phi_mirror_direction
+Defined directions
+Defined data
+Defined affine_length
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> walkthrough 1
+=> walkthrough 1
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+Defined s_all
+-> 1
+
+>> s1
+=> s1
+list 4 0 3 1.5707963267949 6.14159265358979-> I
+
+>> s2
+=> s2
+-> I
+
+>> s3
+=> s3
+-> I
+
+>> 
+Parsing work.lax ...
+Defined kerrfest
+Defined interferometer_demo
+Defined andrew
+Defined aip
+Defined ben
+Defined kerrstuff
+Defined demo
+
+lax interface to GRworkbench started.
+
+>> kerrfest
+=> kerrfest
+
+Parsing kerrfest_presentation.lax ...
+Defined m
+Defined a
+Defined demo_p
+Defined demo_v
+Defined demo_g
+Defined replace_distortions
+Warning, redefined demo
+Defined start
+Defined walkthrough
+-> I
+
+>> start
+=> start
+-> I
+
+>> sine 6
+=> sine 6
+-> -0.279415498198926
+
+>> (compose sine cosine) 6
+=> compose sine cosine 6
+-> 0.819289219220601
+
+>> walkthough
+Exception:	Undefined identifier: walkthough.
+
+>> walkthrough
+=> walkthrough
+
+Parsing kerrfest_presentation_walkthrough.lax ...
+Defined C
+Defined p
+Defined C2
+Defined s1
+Defined obs
+Defined B
+Defined s2
+Defined g_obs
+Defined s3
+Defined s4
+Defined s5
+Defined orb
+Defined s6
+Defined s7
+Defined s8
+Defined s9
+Defined N
+Defined s10
+Defined p2
+Defined obs2
+Defined N2
+Defined s11
+Defined s12
+Defined s13
+Defined s14
+Defined s15
+Defined s16
+Defined s17
+Defined s18
+Defined s19
+Defined s20
+Defined s21
+Defined s_all
+-> I
+
+>> s2
+=> s2
+-> I
+
+>> s1
+=> s1
+list 4 0 3 1.5707963267949 6.14159265358979-> I
+
+>> s3
+=> s3
+-> I
+
+>> s4
+=> s4
+Updated visualisation parameters.
+-> I
+
+>> s5
+=> s5
+Updated visualisation parameters.
+-> I
+
+>> s6
+=> s6
+-> I
+
+>> s7
+=> s7
+-> I
+
+>> s8
+=> s8
+-> I
+
+>> s9
+=> s9
+-> I
+
+>> s10
+=> s10
+-> I
+
+>> s11
+=> s11
+-> I
+
+>> s12
+=> s12
+-> I
+
+>> s13
+=> s13
+-> I
+
+>> s14
+=> s14
+-> I
+
+>> s15
+=> s15
+-> I
+
+>> s16
+=> s16
+-> I
+
+>> s17
+=> s17
+-> I
+
+>> s18
+=> s18
+-> I
+
+>> s19
+=> s19
+-> I
+
+>> s20
+=> s20
+-> I
+
+>> s21
+=> s21
+-> I
+
+>> s22
+Exception:	Undefined identifier: s22.
+
+>> 

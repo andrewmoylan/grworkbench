@@ -1,0 +1,39 @@
+default_window = get "grwb::default_window";
+set_default_window = set "grwb::default_window";
+
+visualise_on_chart = visualise_on_chart_on_window default_window;
+stop_visualising_on_chart = stop_visualising_on_chart_on_window default_window;
+clear_all = clear_all_from_window default_window;
+
+revolve = revolve_on_window default_window;
+stop_revolving = stop_revolving_on_window default_window;
+
+add_distortion = add_distortion_to_window default_window;
+remove_distortions = remove_distortions_from_window default_window;
+remove_distortion = remove_distortion_from_window default_window;
+
+default_curve_samples = get "grwb::default_curve_samples";
+set_default_curve_samples = set "grwb::default_curve_samples";
+
+visualise_with_colour = {{{{visualise_curve_on_window default_window ::? :? ? default_curve_samples :::?}}}};
+visualise = visualise_with_colour white;
+stop_visualising = stop_visualising_curve_on_window default_window;
+freeze_visualisation = freeze_visualisation_of_curve_on_window default_window;
+
+visualise_coord_with_colour = {{{{visualise_coordinate_line_on_window default_window ::? :? ? default_curve_samples :::?}}}};
+visualise_coord = visualise_coord_with_colour white;
+stop_visualising_coord = stop_visualising_coordinate_line_on_window default_window;
+freeze_coord_visualisation = freeze_visualisation_of_coordinate_line_on_window default_window;
+
+visualise_vector_with_colour = {{visualise_vector_on_window default_window ? :?}};
+visualise_vector = visualise_vector_with_colour white;
+stop_visualising_vector = stop_visualising_vector_on_window default_window;
+
+visualise_surface = visualise_surface_on_window default_window;
+stop_visualising_surface = stop_visualising_surface_on_window default_window;
+
+visualise_coordinate_surface = visualise_coordinate_surface_on_window default_window;
+stop_visualising_coordinate_surface = stop_visualising_coordinate_surface_on_window default_window;
+
+set_default_window (window "GRworkbench")
+set_default_curve_samples 29
