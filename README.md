@@ -8,7 +8,7 @@ This version: Antony Searle & Andrew Moylan
 Building
 --------
 
-Doesn't build in latest version of boost/c++.
+Doesn't build in latest version of boost/c++. Hopefully Surly will fix it.
 
 When it does build, something like this should work:
 
@@ -40,3 +40,9 @@ s2<br>
 etc...<br>
 
 The source .lax files for each of these can be found in the 'work' directory of the layout.
+
+Controls to try:
+Up, down, left, right,<br>
+x, y, z<br>
++, -<br>
+Mouse click
