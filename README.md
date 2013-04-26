@@ -10,7 +10,9 @@ Description: https://sites.google.com/site/andrewjmoylan/grworkbench
 Building
 --------
 
-Doesn't build in latest version of boost/c++. When it does build, something like this should work:
+Doesn't build in latest version of boost/c++.
+
+When it does build, something like this should work:
 
 cd lax<br>
 make<br>
@@ -19,5 +21,4 @@ make<br>
 cd ../grworkbench<br>
 make<br>
 
-
-Good luck!
+You need the Boost library in the same directory or on the include path. Good luck.
