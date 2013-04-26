@@ -1,11 +1,9 @@
 GRworkbench
 ===========
 
-Simulation and visualization of general relativistic spacetimes
+Simulation and visualization of general relativistic spacetimes. Old project from department of Physics at The Australian National University. More information: https://sites.google.com/site/andrewjmoylan/grworkbench
 
-Original version: Antony Searle & Andrew Moylan
-
-Description: https://sites.google.com/site/andrewjmoylan/grworkbench
+This version: Antony Searle & Andrew Moylan
 
 Building
 --------
