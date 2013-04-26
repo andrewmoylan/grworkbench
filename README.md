@@ -41,7 +41,7 @@ etc...<br>
 
 The source .lax files for each of these can be found in the 'work' directory of the layout.
 
-Controls to try:
+Controls to try:<br>
 Up, down, left, right,<br>
 x, y, z<br>
 +, -<br>
