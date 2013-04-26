@@ -12,10 +12,12 @@ Building
 
 Doesn't build in latest version of boost/c++. When it does build, something like this should work:
 
-cd lax
-make
-cd ../lift
-make
-cd ../grworkbench
-make
+cd lax<br>
+make<br>
+cd ../lift<br>
+make<br>
+cd ../grworkbench<br>
+make<br>
 
+
+Good luck!
