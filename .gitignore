@@ -14,3 +14,12 @@
 
 # magic makefile dependency files
 *.d
+
+# Visual Studio working directories and files
+Release/
+Debug/
+*.sdf
+
+# Visual Studio solution upgrade backup and log
+Backup/
+UpgradeLog.*
