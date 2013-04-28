@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "powell_minimiser.hpp"
 #include "polar_transform.hpp"
 #include "geodesic.hpp"
@@ -17,7 +17,7 @@ namespace grwb
     class geodesic_shooter
     {
     public:
-      geodesic_shooter(const shared_ptr<point> & a, const shared_ptr<point> & b, const shared_ptr<chart>& c)
+      geodesic_shooter(const std::shared_ptr<point> & a, const std::shared_ptr<point> & b, const std::shared_ptr<chart>& c)
         : a_(a),
           b_(b),
           chart_(c)
@@ -32,15 +32,15 @@ namespace grwb
       }
       
     private:
-      const shared_ptr<point> & a_;
-      const shared_ptr<point> & b_;
-      const shared_ptr<chart>& chart_;
+      const std::shared_ptr<point> & a_;
+      const std::shared_ptr<point> & b_;
+      const std::shared_ptr<chart>& chart_;
     };
   }
 
-  inline optional<shared_ptr<tangent_flow> > connecting_geodesic(const shared_ptr<point> & a, const shared_ptr<point> & b)
+  inline optional<std::shared_ptr<tangent_flow> > connecting_geodesic(const std::shared_ptr<point> & a, const std::shared_ptr<point> & b)
   {
-    const shared_ptr<chart>& c(a->valid_chart());
+    const std::shared_ptr<chart>& c(a->valid_chart());
     connecting_geodesic_detail::geodesic_shooter shooter(a, b, c);
 
     function<optional<double> (const nvector<double>&)> shooter_function(shooter);
@@ -50,11 +50,11 @@ namespace grwb
     optional<pair<nvector<double>, double> > r(pm(to_polar_without_radius(vb - va)));
 
     if (!r)
-      return optional<shared_ptr<tangent_flow> >();
+      return optional<std::shared_ptr<tangent_flow> >();
 
     const nvector<double> v(from_polar_with_radius(r->first, 1.));
     const double scale(min_euclidean_separation(geodesic(tangent_vector(a, c, v)).as_worldline(), b)->first);
 
-    return shared_ptr<tangent_flow>(new tangent_flow(geodesic(tangent_vector(a, c, v * scale))));
+    return std::shared_ptr<tangent_flow>(new tangent_flow(geodesic(tangent_vector(a, c, v * scale))));
   }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <boost/shared_ptr.hpp>
+#include <memory>
+#include <memory>
 #include <lift/array.hpp>
 #include "pane.hpp"
 
@@ -18,14 +19,14 @@ namespace grwb
 {
 
   using std::string;
-  using boost::shared_ptr;
+  using std::shared_ptr;
 
   class window
   {
 
   public:
 
-    window(const shared_ptr<pane>&, const string&);
+    window(const std::shared_ptr<pane>&, const string&);
     ~window();
 
     void draw();
@@ -64,7 +65,7 @@ private:
     void key_down(const int);
 #endif
 
-    shared_ptr<pane> pane_;
+    std::shared_ptr<pane> pane_;
 
 	public:
 		bool active;

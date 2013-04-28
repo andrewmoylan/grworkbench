@@ -1,0 +1,56 @@
+﻿Build started 4/27/2013 10:02:36 PM.
+     1>Project "C:\Users\Antony\Documents\GitHub\grworkbench\src\GRworkbench\grwb.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\Users\Antony\Downloads\boost_1_53_0\boost_1_53_0 /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /wd4996 /analyze- /errorReport:prompt lax_builtins.cpp
+         lax_builtins.cpp
+     1>c:\program files (x86)\microsoft visual studio 11.0\vc\include\xstddef(180): error C2243: 'type cast' : conversion from 'const std::tuple<<unnamed-symbol>,_V0_t,_V1_t,_V2_t,_V3_t,_V4_t> *' to 'const std::tuple<> &' exists, but is inaccessible
+                 with
+                 [
+                     <unnamed-symbol>=double,
+                     _V0_t=double,
+                     _V1_t=double,
+                     _V2_t=int,
+                     _V3_t=bool,
+                     _V4_t=bool
+                 ]
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\xstddef(179) : while compiling class template member function 'bool std::less<_Ty>::operator ()(const _Ty &,const _Ty &) const'
+                 with
+                 [
+                     _Ty=std::tuple<double,double,double,int,bool,bool>
+                 ]
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\xutility(559) : see reference to function template instantiation 'bool std::less<_Ty>::operator ()(const _Ty &,const _Ty &) const' being compiled
+                 with
+                 [
+                     _Ty=std::tuple<double,double,double,int,bool,bool>
+                 ]
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\type_traits(743) : see reference to class template instantiation 'std::less<_Ty>' being compiled
+                 with
+                 [
+                     _Ty=std::tuple<double,double,double,int,bool,bool>
+                 ]
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\xtree(1028) : see reference to class template instantiation 'std::is_empty<_Ty>' being compiled
+                 with
+                 [
+                     _Ty=std::less<std::tuple<double,double,double,int,bool,bool>>
+                 ]
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\map(67) : see reference to class template instantiation 'std::_Tree<_Traits>' being compiled
+                 with
+                 [
+                     _Traits=std::_Tmap_traits<std::tuple<double,double,double,int,bool,bool>,std::shared_ptr<grwb::inter_chart_map>,std::less<std::tuple<double,double,double,int,bool,bool>>,std::allocator<std::pair<const std::tuple<double,double,double,int,bool,bool>,std::shared_ptr<grwb::inter_chart_map>>>,false>
+                 ]
+                 c:\users\antony\documents\github\grworkbench\src\grworkbench\cached_function.hpp(209) : see reference to class template instantiation 'std::map<_Kty,_Ty>' being compiled
+                 with
+                 [
+                     _Kty=std::tuple<double,double,double,int,bool,bool>,
+                     _Ty=std::shared_ptr<grwb::inter_chart_map>
+                 ]
+                 c:\users\antony\documents\github\grworkbench\src\grworkbench\lax_builtins.cpp(451) : see reference to class template instantiation 'grwb::cached_function<F>' being compiled
+                 with
+                 [
+                     F=std::shared_ptr<grwb::inter_chart_map> (const double &,const double &,const double &,int,bool,bool)
+                 ]
+     1>Done Building Project "C:\Users\Antony\Documents\GitHub\grworkbench\src\GRworkbench\grwb.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:09.99

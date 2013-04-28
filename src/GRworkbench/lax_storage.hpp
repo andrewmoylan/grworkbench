@@ -2,7 +2,7 @@
 
 #include "lax/lax.hpp"
 #include "lax/value.hpp"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/optional.hpp>
 #include <map>
 #include <string>
@@ -28,7 +28,7 @@ namespace grwb
         {
           static map<T, lax> _;
           const typename map<T, lax>::const_iterator i(_.find(t));
-          return i != _.end() ? i->second : _.insert(make_pair(t, lax(shared_ptr<const value>(new storage(t, name))))).first->second;
+          return i != _.end() ? i->second : _.insert(make_pair(t, lax(std::shared_ptr<const value>(new storage(t, name))))).first->second;
         }
 
         const T& item() const
@@ -43,7 +43,7 @@ namespace grwb
 
         static const optional<T> extract_from(const lax& l)
         {
-          const shared_ptr<const storage<T> > s(l.dynamic_value<const storage<T> >());
+          const std::shared_ptr<const storage<T> > s(l.dynamic_value<const storage<T> >());
           if (s)
             return s->item();
           else

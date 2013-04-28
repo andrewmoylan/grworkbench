@@ -1,20 +1,15 @@
 #pragma once
 
-#include <boost/function.hpp>
-#include <boost/type_traits.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/tuple/tuple_comparison.hpp>
 #include <boost/optional.hpp>
 #include <map>
+#include <tuple>
 
 namespace grwb
 {
-	using namespace std;
-	using namespace boost;
 
 	template <class T> struct flatten
 	{
-		typedef typename remove_const<typename remove_reference<T>::type>::type type;
+		typedef typename std::remove_const<typename std::remove_reference<T>::type>::type type;
 	};
 
 #define flat_type(T) \
@@ -75,7 +70,7 @@ namespace grwb
 		typedef function<R (A, B)> function_type;
 		typedef flat_type(A) arg1_type;
 		typedef flat_type(B) arg2_type;
-		typedef tuple<arg1_type, arg2_type> tuple_type;
+		typedef std::tuple<arg1_type, arg2_type> tuple_type;
 		typedef typename function_type::result_type result_type;
 		typedef map<tuple_type, result_type> cache_type;
 
@@ -103,7 +98,7 @@ namespace grwb
 		typedef flat_type(A) arg1_type;
 		typedef flat_type(B) arg2_type;
 		typedef flat_type(C) arg3_type;
-		typedef tuple<arg1_type, arg2_type, arg3_type> tuple_type;
+		typedef std::tuple<arg1_type, arg2_type, arg3_type> tuple_type;
 		typedef typename function_type::result_type result_type;
 		typedef map<tuple_type, result_type> cache_type;
 
@@ -132,7 +127,7 @@ namespace grwb
 		typedef flat_type(B) arg2_type;
 		typedef flat_type(C) arg3_type;
 		typedef flat_type(D) arg4_type;
-		typedef tuple<arg1_type, arg2_type, arg3_type, arg4_type> tuple_type;
+		typedef std::tuple<arg1_type, arg2_type, arg3_type, arg4_type> tuple_type;
 		typedef typename function_type::result_type result_type;
 		typedef map<tuple_type, result_type> cache_type;
 
@@ -162,7 +157,7 @@ namespace grwb
 		typedef flat_type(C) arg3_type;
 		typedef flat_type(D) arg4_type;
 		typedef flat_type(E) arg5_type;
-		typedef tuple<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type> tuple_type;
+		typedef std::tuple<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type> tuple_type;
 		typedef typename function_type::result_type result_type;
 		typedef map<tuple_type, result_type> cache_type;
 
@@ -193,7 +188,7 @@ namespace grwb
 		typedef flat_type(D) arg4_type;
 		typedef flat_type(E) arg5_type;
 		typedef flat_type(F) arg6_type;
-		typedef tuple<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type> tuple_type;
+		typedef std::tuple<arg1_type, arg2_type, arg3_type, arg4_type, arg5_type, arg6_type> tuple_type;
 		typedef typename function_type::result_type result_type;
 		typedef map<tuple_type, result_type> cache_type;
 

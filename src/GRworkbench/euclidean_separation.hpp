@@ -12,11 +12,11 @@ namespace grwb
 {
 	using namespace lift;
 
-  inline optional<double> euclidean_separation(const shared_ptr<point> & a, const shared_ptr<point> & b)
+  inline optional<double> euclidean_separation(const std::shared_ptr<point> & a, const std::shared_ptr<point> & b)
   {
     optional<double> r;
 
-    for (set<shared_ptr<chart> >::const_iterator i(charts().begin()); i != charts().end(); ++i)      
+    for (set<std::shared_ptr<chart> >::const_iterator i(charts().begin()); i != charts().end(); ++i)      
     {
       const optional<nvector<double> > xa((*a)[*i]), xb((*b)[*i]);
       if (xa && xb)
@@ -35,7 +35,7 @@ namespace grwb
     class curve_point_separation
     {
     public:
-      curve_point_separation(const worldline& curve, const shared_ptr<point> & a)
+      curve_point_separation(const worldline& curve, const std::shared_ptr<point> & a)
         : curve_(curve),
           a_(a)
       {
@@ -43,19 +43,19 @@ namespace grwb
       
       optional<double> operator()(const double& t) const
       {
-        optional<shared_ptr<point> > b(curve_(t));
+        optional<std::shared_ptr<point> > b(curve_(t));
         return b ? euclidean_separation(a_, *b) : optional<double>();
       }
       
     private:
       const worldline& curve_;
-      const shared_ptr<point> & a_;
+      const std::shared_ptr<point> & a_;
     };
 
     class curve_curve_separation
     {
     public:
-      curve_curve_separation(const function<optional<shared_ptr<point> > (const double&)>& curve_a, const function<optional<shared_ptr<point> > (const double&)>& curve_b)
+      curve_curve_separation(const function<optional<std::shared_ptr<point> > (const double&)>& curve_a, const function<optional<std::shared_ptr<point> > (const double&)>& curve_b)
         : curve_a_(curve_a),
           curve_b_(curve_b)
       {
@@ -63,28 +63,28 @@ namespace grwb
       
       optional<double> operator()(const nvector<double>& t) const
       {
-        optional<shared_ptr<point> > a(curve_a_(t[0]));
-        optional<shared_ptr<point> > b(curve_b_(t[1]));
+        optional<std::shared_ptr<point> > a(curve_a_(t[0]));
+        optional<std::shared_ptr<point> > b(curve_b_(t[1]));
         return a && b ? euclidean_separation(*a, *b) : optional<double>();
       }
       
     private:
-      const function<optional<shared_ptr<point> > (const double&)>& curve_a_;
-      const function<optional<shared_ptr<point> > (const double&)>& curve_b_;
+      const function<optional<std::shared_ptr<point> > (const double&)>& curve_a_;
+      const function<optional<std::shared_ptr<point> > (const double&)>& curve_b_;
     };
   }
 
-  inline optional<pair<double, double> > min_euclidean_separation(const function<optional<shared_ptr<point> > (const double&)>& curve, const shared_ptr<point> & a)
+  inline optional<pair<double, double> > min_euclidean_separation(const function<optional<std::shared_ptr<point> > (const double&)>& curve, const std::shared_ptr<point> & a)
   {
     return brent_minimiser_functor<double, double>(euclidean_separation_detail::curve_point_separation(curve, a))(0.);
   }
 
-  inline optional<pair<double, double> > min_euclidean_separation(const shared_ptr<point> & a, const function<optional<shared_ptr<point> > (const double&)>& curve)
+  inline optional<pair<double, double> > min_euclidean_separation(const std::shared_ptr<point> & a, const function<optional<std::shared_ptr<point> > (const double&)>& curve)
   {
     return min_euclidean_separation(curve, a);
   }
 
-  inline optional<pair<nvector<double>, double> > min_euclidean_separation(const function<optional<shared_ptr<point> > (const double&)>& curve_a, const function<optional<shared_ptr<point> > (const double&)>& curve_b, const nvector<double>& guess)  
+  inline optional<pair<nvector<double>, double> > min_euclidean_separation(const function<optional<std::shared_ptr<point> > (const double&)>& curve_a, const function<optional<std::shared_ptr<point> > (const double&)>& curve_b, const nvector<double>& guess)  
   {
     static const double auto_scale(1.e-2);
     const double scale_a(guess[0] != 0. ? auto_scale * guess[0] : 1.);
@@ -92,7 +92,7 @@ namespace grwb
     return powell_minimiser<double, nvector<double> >(euclidean_separation_detail::curve_curve_separation(curve_a, curve_b))(guess, make_vector(make_vector(scale_a, scale_b), make_vector(scale_a, - scale_b)));
   }
   
-  inline optional<pair<nvector<double>, double> > min_euclidean_separation(const function<optional<shared_ptr<point> > (const double&)>& curve_a, const function<optional<shared_ptr<point> > (const double&)>& curve_b)
+  inline optional<pair<nvector<double>, double> > min_euclidean_separation(const function<optional<std::shared_ptr<point> > (const double&)>& curve_a, const function<optional<std::shared_ptr<point> > (const double&)>& curve_b)
   {
     return min_euclidean_separation(curve_a, curve_b, make_vector(0., 0.));
   }

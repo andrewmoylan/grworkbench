@@ -1,5 +1,5 @@
 #include <sstream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/cross_product.hpp>
 #include <lift/registry.hpp>
 #include "application.hpp"
@@ -17,19 +17,19 @@ namespace grwb
 	using boost::function;
 	using lift::cross_product;
 
-	void view::add_coordinate_curve(const shared_ptr<coordinate_line>& c, const double& a, const double& b, const int s, const vector<double, 3>& col)
+	void view::add_coordinate_curve(const std::shared_ptr<coordinate_line>& c, const double& a, const double& b, const int s, const vector<double, 3>& col)
 	{
 		add_curve<nvector<double> >(c, a, b, s, col, coordinate_curves);
 	}
 
-	void view::add_spacetime_curve(const shared_ptr<worldline>& c, const double& a, const double& b, const int s, const vector<double, 3>& col)
+	void view::add_spacetime_curve(const std::shared_ptr<worldline>& c, const double& a, const double& b, const int s, const vector<double, 3>& col)
 	{
-		add_curve<shared_ptr<point> >(c, a, b, s, col, spacetime_curves);
+		add_curve<std::shared_ptr<point> >(c, a, b, s, col, spacetime_curves);
 	}
 
-	void view::add_vector(const shared_ptr<tangent_vector>& t, const vector<double, 3>& colour)
+	void view::add_vector(const std::shared_ptr<tangent_vector>& t, const vector<double, 3>& colour)
 	{
-		const map<shared_ptr<tangent_vector>, vector<double, 3> >::const_iterator search(vectors.find(t));
+		const map<std::shared_ptr<tangent_vector>, vector<double, 3> >::const_iterator search(vectors.find(t));
 		if (search == vectors.end())
 			vectors.insert(make_pair(t, colour));
 		else
@@ -40,9 +40,9 @@ namespace grwb
 		vectors_dirty = true;
 	}
 
-	void view::remove_vector(const shared_ptr<tangent_vector>& t)
+	void view::remove_vector(const std::shared_ptr<tangent_vector>& t)
 	{
-		const map<shared_ptr<tangent_vector>, vector<double, 3> >::iterator search(vectors.find(t));
+		const map<std::shared_ptr<tangent_vector>, vector<double, 3> >::iterator search(vectors.find(t));
 		if (search != vectors.end())
 		{
 			vectors.erase(search);
@@ -52,21 +52,21 @@ namespace grwb
 			throw "Couldn't remove vector visualisation: it was not currently being visualised.";
 	}
 
-  void view::add_coordinate_surface(const shared_ptr<coordinate_surface>& cv, const vector<double, 2>& x_range, const vector<double, 2>& y_range)
+  void view::add_coordinate_surface(const std::shared_ptr<coordinate_surface>& cv, const vector<double, 2>& x_range, const vector<double, 2>& y_range)
   {
-    const map<shared_ptr<coordinate_surface>, shared_ptr<surface<nvector<double> > > >::const_iterator search(surfaces.find(cv));
+    const map<std::shared_ptr<coordinate_surface>, std::shared_ptr<surface<nvector<double> > > >::const_iterator search(surfaces.find(cv));
     if (search != surfaces.end())
     {
 			search->second->update(x_range, y_range);
 			lax_interpreter::log_cout << "Updated visualisation parameters." << endl;
     }
     else
-      surfaces.insert(make_pair(cv, shared_ptr<surface<nvector<double> > >(new surface<nvector<double> >(*this, cv, x_range, y_range))));
+      surfaces.insert(make_pair(cv, std::shared_ptr<surface<nvector<double> > >(new surface<nvector<double> >(*this, cv, x_range, y_range))));
   }
 
-  void view::remove_coordinate_surface(const shared_ptr<coordinate_surface>& cv)
+  void view::remove_coordinate_surface(const std::shared_ptr<coordinate_surface>& cv)
   {
-    const map<shared_ptr<coordinate_surface>, shared_ptr<surface<nvector<double> > > >::iterator search(surfaces.find(cv));
+    const map<std::shared_ptr<coordinate_surface>, std::shared_ptr<surface<nvector<double> > > >::iterator search(surfaces.find(cv));
 		if (search != surfaces.end())
 		{
 			surfaces.erase(search);
@@ -75,21 +75,21 @@ namespace grwb
 			throw "Couldn't remove surface visualisation: it was not currently being visualised.";
   }
 
-	void view::add_spacetime_surface(const shared_ptr<spacetime_surface>& cv, const vector<double, 2>& x_range, const vector<double, 2>& y_range)
+	void view::add_spacetime_surface(const std::shared_ptr<spacetime_surface>& cv, const vector<double, 2>& x_range, const vector<double, 2>& y_range)
   {
-    const map<shared_ptr<spacetime_surface>, shared_ptr<surface<shared_ptr<point> > > >::const_iterator search(spacetime_surfaces.find(cv));
+    const map<std::shared_ptr<spacetime_surface>, std::shared_ptr<surface<std::shared_ptr<point> > > >::const_iterator search(spacetime_surfaces.find(cv));
     if (search != spacetime_surfaces.end())
     {
 			search->second->update(x_range, y_range);
 			lax_interpreter::log_cout << "Updated visualisation parameters." << endl;
     }
     else
-      spacetime_surfaces.insert(make_pair(cv, shared_ptr<surface<shared_ptr<point> > >(new surface<shared_ptr<point> >(*this, cv, x_range, y_range))));
+      spacetime_surfaces.insert(make_pair(cv, std::shared_ptr<surface<std::shared_ptr<point> > >(new surface<std::shared_ptr<point> >(*this, cv, x_range, y_range))));
   }
 
-  void view::remove_spacetime_surface(const shared_ptr<spacetime_surface>& cv)
+  void view::remove_spacetime_surface(const std::shared_ptr<spacetime_surface>& cv)
   {
-    const map<shared_ptr<spacetime_surface>, shared_ptr<surface<shared_ptr<point> > > >::iterator search(spacetime_surfaces.find(cv));
+    const map<std::shared_ptr<spacetime_surface>, std::shared_ptr<surface<std::shared_ptr<point> > > >::iterator search(spacetime_surfaces.find(cv));
 		if (search != spacetime_surfaces.end())
 		{
 			spacetime_surfaces.erase(search);
@@ -98,9 +98,9 @@ namespace grwb
 			throw "Couldn't remove surface visualisation: it was not currently being visualised.";
   }
 
-	template <class T> void view::add_curve(const shared_ptr<function<optional<T> (const double&)> >& c, const double& a, const double& b, const int s, const vector<double, 3>& col, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >& list)
+	template <class T> void view::add_curve(const std::shared_ptr<function<optional<T> (const double&)> >& c, const double& a, const double& b, const int s, const vector<double, 3>& col, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >& list)
 	{
-		const typename map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >::const_iterator search(list.find(c));
+		const typename map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >::const_iterator search(list.find(c));
 		if (search != list.end())
 		{
 			search->second->update(a, b, s, col);
@@ -108,7 +108,7 @@ namespace grwb
 		}
 		else
 		{
-			shared_ptr<curve<T> > cv(new curve<T>(c, a, b, s, col, *this));
+			std::shared_ptr<curve<T> > cv(new curve<T>(c, a, b, s, col, *this));
 			list.insert(make_pair(c, cv));
 			cv->invalidate();
 		}
@@ -116,19 +116,19 @@ namespace grwb
 
 	void view::dirty()
 	{
-		for (list<shared_ptr<object> >::const_iterator i = objects.begin(); i != objects.end(); ++i)
+		for (list<std::shared_ptr<object> >::const_iterator i = objects.begin(); i != objects.end(); ++i)
 			(*i)->invalidate();
 
-		for (map<shared_ptr<worldline>, shared_ptr<curve<shared_ptr<point> > > >::const_iterator i(spacetime_curves.begin()); i != spacetime_curves.end(); ++i)
+		for (map<std::shared_ptr<worldline>, std::shared_ptr<curve<std::shared_ptr<point> > > >::const_iterator i(spacetime_curves.begin()); i != spacetime_curves.end(); ++i)
 			i->second->invalidate();
 
-		for (map<shared_ptr<function<optional<nvector<double> > (const double&)> >, shared_ptr<curve<nvector<double> > > >::const_iterator i(coordinate_curves.begin()); i != coordinate_curves.end(); ++i)
+		for (map<std::shared_ptr<function<optional<nvector<double> > (const double&)> >, std::shared_ptr<curve<nvector<double> > > >::const_iterator i(coordinate_curves.begin()); i != coordinate_curves.end(); ++i)
 			i->second->invalidate();
 
-    for (map<shared_ptr<coordinate_surface>, shared_ptr<surface<nvector<double> > > >::const_iterator i(surfaces.begin()); i != surfaces.end(); ++i)
+    for (map<std::shared_ptr<coordinate_surface>, std::shared_ptr<surface<nvector<double> > > >::const_iterator i(surfaces.begin()); i != surfaces.end(); ++i)
 			i->second->invalidate();
 
-		for (map<shared_ptr<spacetime_surface>, shared_ptr<surface<shared_ptr<point> > > >::const_iterator i(spacetime_surfaces.begin()); i != spacetime_surfaces.end(); ++i)
+		for (map<std::shared_ptr<spacetime_surface>, std::shared_ptr<surface<std::shared_ptr<point> > > >::const_iterator i(spacetime_surfaces.begin()); i != spacetime_surfaces.end(); ++i)
 			i->second->invalidate();
 
 		vectors_dirty = true;
@@ -136,45 +136,45 @@ namespace grwb
 		drawing_error = false;
 	}
 
-	void view::remove_coordinate_curve(const shared_ptr<coordinate_line>& c)
+	void view::remove_coordinate_curve(const std::shared_ptr<coordinate_line>& c)
 	{
 		remove_curve<nvector<double> >(c, coordinate_curves);
 	}
 
-	void view::remove_spacetime_curve(const shared_ptr<worldline>& c)
+	void view::remove_spacetime_curve(const std::shared_ptr<worldline>& c)
 	{
-		remove_curve<shared_ptr<point> >(c, spacetime_curves);
+		remove_curve<std::shared_ptr<point> >(c, spacetime_curves);
 	}
 
-	template <class T> void view::remove_curve(const shared_ptr<function<optional<T> (const double&)> >& c, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >& list)
+	template <class T> void view::remove_curve(const std::shared_ptr<function<optional<T> (const double&)> >& c, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >& list)
 	{
-		const typename map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >::iterator search(list.find(c));
+		const typename map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >::iterator search(list.find(c));
 		if (search != list.end())
 			list.erase(search);
 		else
 			throw "Couldn't stop visualising curve: it was not currently being visualised.";
 	}
 
-	void view::freeze_coordinate_curve(const shared_ptr<coordinate_line>& c)
+	void view::freeze_coordinate_curve(const std::shared_ptr<coordinate_line>& c)
 	{
 		freeze_curve<nvector<double> >(c, coordinate_curves);
 	}
 
-	void view::freeze_spacetime_curve(const shared_ptr<worldline>& c)
+	void view::freeze_spacetime_curve(const std::shared_ptr<worldline>& c)
 	{
-		freeze_curve<shared_ptr<point> >(c, spacetime_curves);
+		freeze_curve<std::shared_ptr<point> >(c, spacetime_curves);
 	}
 
-	template <class T> void view::freeze_curve(const shared_ptr<function<optional<T> (const double&)> >& c, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >& list)
+	template <class T> void view::freeze_curve(const std::shared_ptr<function<optional<T> (const double&)> >& c, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >& list)
 	{
-		const typename map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >::iterator search(list.find(c));
+		const typename map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >::iterator search(list.find(c));
 		if (search != list.end())
 			search->second->freeze();
 		else
 			throw "Couldn't freeze visualisation of curve: it was not currently being visualised.";
 	}
 
-	void freeze_coordinate_curve(const shared_ptr<worldline>&);
+	void freeze_coordinate_curve(const std::shared_ptr<worldline>&);
 
   class grid {
   public:
@@ -862,18 +862,18 @@ namespace grwb
     class select
     {
     public:
-      select(const function<view*()>& f, shared_ptr<view>& v_) : factory(f), v(v_)
+      select(const function<view*()>& f, std::shared_ptr<view>& v_) : factory(f), v(v_)
       {
       }
 
       void operator()() const
       { 
-        v = shared_ptr<view>(factory());
+        v = std::shared_ptr<view>(factory());
       }
 
     private:
       const function<view*()> factory;
-      mutable shared_ptr<view>& v;
+      mutable std::shared_ptr<view>& v;
       select& operator=(const select&);
     }; // select
   }  
@@ -881,9 +881,9 @@ namespace grwb
   using boost::optional;
   using lift::vector;
 
-  optional<vector<double, 3> > view::operator()(const shared_ptr<point>& p) const
+  optional<vector<double, 3> > view::operator()(const std::shared_ptr<point>& p) const
   {
-		for (multiset<shared_ptr<chart> >::const_iterator i(charts.begin()); i != charts.end(); ++i)
+		for (multiset<std::shared_ptr<chart> >::const_iterator i(charts.begin()); i != charts.end(); ++i)
 		{
 			const optional<nvector<double> > coordinates((*p)[*i]);
 			if (coordinates)
@@ -895,7 +895,7 @@ namespace grwb
   optional<vector<double, 3> > view::operator()(const nvector<double>& x) const
   {
     optional<nvector<double> > coordinates(x);
-    for (list<shared_ptr<distortion> >::const_iterator i = distortions.begin(); i != distortions.end(); ++i)
+    for (list<std::shared_ptr<distortion> >::const_iterator i = distortions.begin(); i != distortions.end(); ++i)
       if (*i && !(coordinates = value((**i)(make_gradient(*coordinates)))))
         return optional<vector<double, 3> >();
 
@@ -910,11 +910,11 @@ namespace grwb
     return result;
   }
 
-  optional<pair<vector<double, 3>, vector<double, 3> > > view::operator()(const shared_ptr<tangent_vector>& p) const
+  optional<pair<vector<double, 3>, vector<double, 3> > > view::operator()(const std::shared_ptr<tangent_vector>& p) const
   {
 		optional<nvector<double> > v;
 		optional<nvector<double> > g;
-		for (multiset<shared_ptr<chart> >::const_iterator i(charts.begin()); i != charts.end(); ++i)
+		for (multiset<std::shared_ptr<chart> >::const_iterator i(charts.begin()); i != charts.end(); ++i)
 		{
 			const optional<nvector<double> > coordinates((*p->context())[*i]);
 			if (coordinates)
@@ -929,7 +929,7 @@ namespace grwb
 			return optional<pair<vector<double, 3>, vector<double, 3> > >();
 
     optional<nvector<differential<double, nvector<double> > > > x(make_gradient(*v));
-    for (list<shared_ptr<distortion> >::const_iterator i(distortions.begin()); i != distortions.end(); ++i)
+    for (list<std::shared_ptr<distortion> >::const_iterator i(distortions.begin()); i != distortions.end(); ++i)
       if (!x || /*!*i ||*/ !(x = (**i)(*x)))
         return optional<pair<vector<double, 3>, vector<double, 3> > >();
     
@@ -973,19 +973,19 @@ namespace grwb
 
 		try
 		{
-			for (list<shared_ptr<object> >::const_iterator i = objects.begin(); i != objects.end(); ++i)
+			for (list<std::shared_ptr<object> >::const_iterator i = objects.begin(); i != objects.end(); ++i)
 				(*i)->draw();
 
-			for (map<shared_ptr<coordinate_surface>, shared_ptr<surface<nvector<double> > > >::const_iterator i(surfaces.begin()); i != surfaces.end(); ++i)
+			for (map<std::shared_ptr<coordinate_surface>, std::shared_ptr<surface<nvector<double> > > >::const_iterator i(surfaces.begin()); i != surfaces.end(); ++i)
 				i->second->draw();
 
-			for (map<shared_ptr<spacetime_surface>, shared_ptr<surface<shared_ptr<point> > > >::const_iterator i(spacetime_surfaces.begin()); i != spacetime_surfaces.end(); ++i)
+			for (map<std::shared_ptr<spacetime_surface>, std::shared_ptr<surface<std::shared_ptr<point> > > >::const_iterator i(spacetime_surfaces.begin()); i != spacetime_surfaces.end(); ++i)
 				i->second->draw();
 
-			for (map<shared_ptr<worldline>, shared_ptr<curve<shared_ptr<point> > > >::const_iterator i(spacetime_curves.begin()); i != spacetime_curves.end(); ++i)
+			for (map<std::shared_ptr<worldline>, std::shared_ptr<curve<std::shared_ptr<point> > > >::const_iterator i(spacetime_curves.begin()); i != spacetime_curves.end(); ++i)
 				i->second->draw();
 
-			for (map<shared_ptr<function<optional<nvector<double> > (const double&)> >, shared_ptr<curve<nvector<double> > > >::const_iterator i(coordinate_curves.begin()); i != coordinate_curves.end(); ++i)
+			for (map<std::shared_ptr<function<optional<nvector<double> > (const double&)> >, std::shared_ptr<curve<nvector<double> > > >::const_iterator i(coordinate_curves.begin()); i != coordinate_curves.end(); ++i)
 				i->second->draw();
 
 			if (vectors_dirty)
@@ -993,7 +993,7 @@ namespace grwb
 				vectors_gl_list = glGenLists(1);
 				glNewList(vectors_gl_list, GL_COMPILE_AND_EXECUTE);
 				glBegin(GL_LINES);
-				for (map<shared_ptr<tangent_vector>, vector<double, 3> >::const_iterator i(vectors.begin()); i != vectors.end(); ++i)
+				for (map<std::shared_ptr<tangent_vector>, vector<double, 3> >::const_iterator i(vectors.begin()); i != vectors.end(); ++i)
 				{
 					optional<pair<vector<double, 3>, vector<double, 3> > > v(operator ()(i->first));
 					if (v)

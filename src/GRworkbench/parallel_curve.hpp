@@ -21,19 +21,19 @@
 //    {
 //    }
 //    
-//    optional<shared_ptr<point> > operator()(const double& x) const
+//    optional<std::shared_ptr<point> > operator()(const double& x) const
 //    {
 //      optional<tangent_vector> direction((*direction_)(x));
 //      
 //      if (!direction)
-//        return optional<shared_ptr<point> >();
+//        return optional<std::shared_ptr<point> >();
 //      
 //      return geodesic(*direction)(1.);
 //    }
 //    
 //    
 //  private:
-//    const shared_ptr<parallel_transport> direction_;
+//    const std::shared_ptr<parallel_transport> direction_;
 //  };
 //  
 //  inline cached_worldline parallel_curve(const function<optional<tangent_vector> (const double&)>& curve, const tangent_vector& direction)

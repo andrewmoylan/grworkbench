@@ -19,11 +19,11 @@ namespace grwb
       typedef typename T::result_type return_type;
       typedef typename T::argument_type argument_type;
 
-      static const shared_ptr<T> make(const lax& l)
+      static const std::shared_ptr<T> make(const lax& l)
       {
-        static map<shared_ptr<const value>, shared_ptr<T> > _;
-        const typename map<shared_ptr<const value>, shared_ptr<T> >::const_iterator search(_.find(l.value()));
-        return search != _.end() ? search->second : _.insert(make_pair(l.value(), shared_ptr<T>(new T(typed_lax_interface(l))))).first->second;
+        static map<std::shared_ptr<const value>, std::shared_ptr<T> > _;
+        const typename map<std::shared_ptr<const value>, std::shared_ptr<T> >::const_iterator search(_.find(l.value()));
+        return search != _.end() ? search->second : _.insert(make_pair(l.value(), std::shared_ptr<T>(new T(typed_lax_interface(l))))).first->second;
       }
 
       return_type operator()(argument_type a) const

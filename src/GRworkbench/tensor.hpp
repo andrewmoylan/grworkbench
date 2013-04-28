@@ -3,7 +3,7 @@
 #include <map>
 
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/constant_iterator.hpp>
 #include "approx_equal.hpp"
 #include "derivative.hpp"
@@ -15,22 +15,22 @@ namespace grwb
   class tangent_vector
   {
   public:
-    tangent_vector(const shared_ptr<point> & p, const shared_ptr<chart>& c, const nvector<double>& v)
+    tangent_vector(const std::shared_ptr<point> & p, const std::shared_ptr<chart>& c, const nvector<double>& v)
       : point_(p)
     {
       _.insert(make_pair(c, optional<nvector<double> >(v)));
     }
 
-    const optional<nvector<double> >& operator[](const shared_ptr<chart>& c) const
+    const optional<nvector<double> >& operator[](const std::shared_ptr<chart>& c) const
     {
-			const std::map<shared_ptr<chart>, optional<nvector<double> > >::const_iterator cached(_.find(c));
+			const std::map<std::shared_ptr<chart>, optional<nvector<double> > >::const_iterator cached(_.find(c));
       if (cached != _.end())
 	      return cached->second;
       else
-	      for (std::map<shared_ptr<chart>, optional<nvector<double> > >::const_iterator i(_.begin()); i != _.end(); ++i)
+	      for (std::map<std::shared_ptr<chart>, optional<nvector<double> > >::const_iterator i(_.begin()); i != _.end(); ++i)
 	        if (i->second)
 	        {
-	          std::map<pair<shared_ptr<chart>, shared_ptr<chart> >, shared_ptr<inter_chart_map> >::const_iterator j(inter_chart_maps().find(make_pair(i->first, c)));
+	          std::map<pair<std::shared_ptr<chart>, std::shared_ptr<chart> >, std::shared_ptr<inter_chart_map> >::const_iterator j(inter_chart_maps().find(make_pair(i->first, c)));
 	          if (j != inter_chart_maps().end())
             {
               nvector<double> x(*(*point_)[i->first]);
@@ -47,7 +47,7 @@ namespace grwb
       return _.insert(make_pair(c, optional<nvector<double> >())).first->second;
     }
     
-    const shared_ptr<point> & context() const
+    const std::shared_ptr<point> & context() const
     {
       return point_;
     }
@@ -105,12 +105,12 @@ namespace grwb
     }
 
   private:
-    mutable std::map<shared_ptr<chart>, optional<nvector<double> > > _;
+    mutable std::map<std::shared_ptr<chart>, optional<nvector<double> > > _;
 
-    const shared_ptr<point> point_;
+    const std::shared_ptr<point> point_;
 
-    typedef std::map<shared_ptr<chart>, optional<nvector<double> > >::const_iterator const_iterator;
-    typedef std::map<shared_ptr<chart>, optional<nvector<double> > >::iterator iterator;
+    typedef std::map<std::shared_ptr<chart>, optional<nvector<double> > >::const_iterator const_iterator;
+    typedef std::map<std::shared_ptr<chart>, optional<nvector<double> > >::iterator iterator;
 
     tangent_vector& operator=(const tangent_vector&);
   };

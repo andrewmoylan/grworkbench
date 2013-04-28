@@ -15,44 +15,44 @@ namespace grwb
   class parallel_transport
   {
   public:
-    parallel_transport(const tangent_flow& curve, const shared_ptr<tangent_vector>& t)
-      : cache_(new std::map<double, shared_ptr<tangent_vector> >),
+    parallel_transport(const tangent_flow& curve, const std::shared_ptr<tangent_vector>& t)
+      : cache_(new std::map<double, std::shared_ptr<tangent_vector> >),
         curve_(curve)
     {
       cache_->insert(cache_value_type(0, t));
     }
     
-    optional<shared_ptr<tangent_vector> > operator()(const double& x) const
+    optional<std::shared_ptr<tangent_vector> > operator()(const double& x) const
     {
       return operator()(x, 0).second;
     }
     
-    pair<double, optional<shared_ptr<tangent_vector> > > operator()(const double& x, const double& epsilon) const
+    pair<double, optional<std::shared_ptr<tangent_vector> > > operator()(const double& x, const double& epsilon) const
     {
-      typedef pair<double, optional<shared_ptr<tangent_vector> > > return_type;
+      typedef pair<double, optional<std::shared_ptr<tangent_vector> > > return_type;
       
       if (!curve_(x))
-        return return_type(x, optional<shared_ptr<tangent_vector> >());
+        return return_type(x, optional<std::shared_ptr<tangent_vector> >());
       
       cache_iterator_type initial_data(get_initial_data(x));
       
       if (abs(initial_data->first - x) <= epsilon)
-        return return_type(initial_data->first, optional<shared_ptr<tangent_vector> >(initial_data->second));
+        return return_type(initial_data->first, optional<std::shared_ptr<tangent_vector> >(initial_data->second));
       
       optional<cache_iterator_type> result(advance(*initial_data->second, initial_data->first, x));
       
       if (result)
-        return return_type(x, optional<shared_ptr<tangent_vector> >((*result)->second));
+        return return_type(x, optional<std::shared_ptr<tangent_vector> >((*result)->second));
       
-      return return_type(x, optional<shared_ptr<tangent_vector> >());
+      return return_type(x, optional<std::shared_ptr<tangent_vector> >());
     }
     
   private:
-    shared_ptr<std::map<double, shared_ptr<tangent_vector> > > cache_;
+    std::shared_ptr<std::map<double, std::shared_ptr<tangent_vector> > > cache_;
     const tangent_flow curve_;
 
-    typedef std::map<double, shared_ptr<tangent_vector> >::const_iterator cache_iterator_type;
-    typedef std::map<double, shared_ptr<tangent_vector> >::value_type cache_value_type;
+    typedef std::map<double, std::shared_ptr<tangent_vector> >::const_iterator cache_iterator_type;
+    typedef std::map<double, std::shared_ptr<tangent_vector> >::value_type cache_value_type;
 
 
     cache_iterator_type get_initial_data(const double& x) const
@@ -77,7 +77,7 @@ namespace grwb
       
       //log_cout << "  Parallel transport: " << from_t << " -> " << to_t << endl;
       
-      for (set<shared_ptr<chart> >::const_iterator i = charts().begin(); i != charts().end(); ++i)
+      for (set<std::shared_ptr<chart> >::const_iterator i = charts().begin(); i != charts().end(); ++i)
         if (tangent[*i])
         {
           optional<cache_iterator_type> result(advance_on_chart(*i, *tangent[*i], from_t, to_t));
@@ -92,7 +92,7 @@ namespace grwb
     class parallel_transport_callback
     {
     public:
-      parallel_transport_callback(const shared_ptr<chart>& c, const tangent_flow& cv)
+      parallel_transport_callback(const std::shared_ptr<chart>& c, const tangent_flow& cv)
         : chart_(c),
           curve_(cv)
       {
@@ -103,7 +103,7 @@ namespace grwb
         const size_t dim(y.size());
         nvector<double> dy(dim);
         
-        optional<shared_ptr<tangent_vector> > tangent(curve_(t));
+        optional<std::shared_ptr<tangent_vector> > tangent(curve_(t));
         if (!tangent || !(**tangent)[chart_])
           return optional<nvector<double> >();
         
@@ -121,13 +121,13 @@ namespace grwb
       }
       
     private:
-      const shared_ptr<chart> chart_;
+      const std::shared_ptr<chart> chart_;
       const tangent_flow curve_;
     };
     
-    optional<cache_iterator_type> advance_on_chart(const shared_ptr<chart>& c, const nvector<double>& v, const double& from_t, const double& to_t) const
+    optional<cache_iterator_type> advance_on_chart(const std::shared_ptr<chart>& c, const nvector<double>& v, const double& from_t, const double& to_t) const
     {
-      optional<shared_ptr<tangent_vector> > dest_tangent(curve_(to_t));
+      optional<std::shared_ptr<tangent_vector> > dest_tangent(curve_(to_t));
       if (!dest_tangent)
         return optional<cache_iterator_type>();
       
@@ -136,7 +136,7 @@ namespace grwb
       if (!solver.step(to_t))
         return optional<cache_iterator_type>();
       
-      return optional<cache_iterator_type>(cache_->insert(cache_value_type(to_t, shared_ptr<tangent_vector>(new tangent_vector((*dest_tangent)->context(), c, solver.y())))).first);
+      return optional<cache_iterator_type>(cache_->insert(cache_value_type(to_t, std::shared_ptr<tangent_vector>(new tangent_vector((*dest_tangent)->context(), c, solver.y())))).first);
     }
     
     const static size_t max_recursion_ = 7;

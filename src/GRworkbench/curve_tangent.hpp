@@ -2,7 +2,7 @@
 //// boost
 //#include <boost/function.hpp>
 //#include <boost/optional.hpp>
-//#include <boost/shared_ptr.hpp>
+#include <memory>
 //
 //namespace grwb
 //{
@@ -13,11 +13,11 @@
 //  class curve_tangent
 //  {
 //  public:
-//    curve_tangent(function<optional<shared_ptr<point> > (const double&)> f);
+//    curve_tangent(function<optional<std::shared_ptr<point> > (const double&)> f);
 //    optional<tangent_vector> operator()(const double& x) const;
 //
 //  private:
-//    const function<optional<shared_ptr<point> > (const double&)> f_;
+//    const function<optional<std::shared_ptr<point> > (const double&)> f_;
 //  };
 //}
 //
@@ -29,7 +29,7 @@
 //namespace grwb
 //{
 //
-//  inline curve_tangent::curve_tangent(function<optional<shared_ptr<point> > (const double&)> f)
+//  inline curve_tangent::curve_tangent(function<optional<std::shared_ptr<point> > (const double&)> f)
 //    : f_(f)
 //  {
 //  }
@@ -39,7 +39,7 @@
 //    class curve_on_chart
 //    {
 //    public:
-//      curve_on_chart(const function<optional<shared_ptr<point> > (const double&)>& f, const shared_ptr<chart>& c)
+//      curve_on_chart(const function<optional<std::shared_ptr<point> > (const double&)>& f, const std::shared_ptr<chart>& c)
 //	: f_(f),
 //	  chart_(c)
 //      {
@@ -47,23 +47,23 @@
 //
 //      optional<nvector<double> > operator()(const double& x) const
 //      {
-//	optional<shared_ptr<point> > p(f_(x));
+//	optional<std::shared_ptr<point> > p(f_(x));
 //	return p ? (*p)[chart_] : optional<nvector<double> >();
 //      }
 //
 //    private:
-//      const function<optional<shared_ptr<point> > (const double&)> f_;
-//      const shared_ptr<chart> chart_;
+//      const function<optional<std::shared_ptr<point> > (const double&)> f_;
+//      const std::shared_ptr<chart> chart_;
 //    };
 //  }
 //
 //  inline optional<tangent_vector> curve_tangent::operator()(const double& x) const
 //  {
-//    optional<shared_ptr<point> > p = f_(x);
+//    optional<std::shared_ptr<point> > p = f_(x);
 //    if (!p)
 //      return optional<tangent_vector>();
 //
-//    const shared_ptr<chart>& c(p->valid_chart());
+//    const std::shared_ptr<chart>& c(p->valid_chart());
 //
 //    return optional<tangent_vector>(tangent_vector(*p, c, *derivative<nvector<double> >(function<optional<nvector<double> > (const double&)>(curve_on_chart(f_, c)))(x)));
 //  }

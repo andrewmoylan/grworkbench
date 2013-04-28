@@ -31,7 +31,7 @@ namespace grwb
           key_type t(make_pair(c, name));
           static map<key_type, lax> _;
           const typename map<key_type, lax>::const_iterator i(_.find(t));
-          return i != _.end() ? i->second : _.insert(make_pair(t, lax(shared_ptr<const value>(new lax_function(c, name))))).first->second;
+          return i != _.end() ? i->second : _.insert(make_pair(t, lax(std::shared_ptr<const value>(new lax_function(c, name))))).first->second;
         }
 
       protected:

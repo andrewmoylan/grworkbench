@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="unconverted">
+      <UniqueIdentifier>{d849b193-d5d0-4287-8f67-ea6d3e4d9d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lax code">
+      <UniqueIdentifier>{250cf75e-5c93-4291-953c-a54faad1a91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lax code\work">
+      <UniqueIdentifier>{2751e376-ff70-4eb1-9225-246b42d7a2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lax code\charts">
+      <UniqueIdentifier>{9f7b2d06-e6b6-41d8-8ca1-5451be63eaf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="application">
+      <UniqueIdentifier>{5fab6dcc-4e83-4016-a592-561445e646a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lax integration">
+      <UniqueIdentifier>{4b362735-e048-41ae-9e47-8925c761aa07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="visualisation">
+      <UniqueIdentifier>{ee785744-addf-4235-8647-b39d93942483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="visualisation\distortions">
+      <UniqueIdentifier>{7102cd37-5330-403f-a19a-d210278be371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="differential geometry">
+      <UniqueIdentifier>{d32a535f-5d3b-41a8-8b27-d335cabb2bc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="differential geometry\charts">
+      <UniqueIdentifier>{e04fc998-9da8-4917-af25-4ba72f076813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="numerics">
+      <UniqueIdentifier>{6b2d88a7-93b4-427d-aaf7-338eb5650274}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="curve_tangent.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="derivative.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="gradient.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="karim.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="kerr_circular_orbit.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="newton_raphson.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="parallel_curve.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="reissner_nordstrom.hpp">
+      <Filter>unconverted</Filter>
+    </ClInclude>
+    <ClInclude Include="application.hpp">
+      <Filter>application</Filter>
+    </ClInclude>
+    <ClInclude Include="cached_function.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="lax_builtins.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="lax_function.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="lax_storage.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="to_from_lax.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="typed_lax_interface.hpp">
+      <Filter>lax integration</Filter>
+    </ClInclude>
+    <ClInclude Include="curve.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="object.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="opengl_compound_list.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="pane.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="surface.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="view.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="window.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="worldline.hpp">
+      <Filter>visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="distortion.hpp">
+      <Filter>visualisation\distortions</Filter>
+    </ClInclude>
+    <ClInclude Include="linear_distortion.hpp">
+      <Filter>visualisation\distortions</Filter>
+    </ClInclude>
+    <ClInclude Include="spherical_orthonormal.hpp">
+      <Filter>visualisation\distortions</Filter>
+    </ClInclude>
+    <ClInclude Include="atlas.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="connecting_geodesic.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="connecting_null_geodesic.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="connection.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="euclidean_separation.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="geodesic.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="metric.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="orthonormal_tangent_basis.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="parallel_transport.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="point.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="tensor.hpp">
+      <Filter>differential geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="kerr.hpp">
+      <Filter>differential geometry\charts</Filter>
+    </ClInclude>
+    <ClInclude Include="approx_equal.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="brent_minimiser.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="bulirsch_stoer.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="bulirsch_stoer_parameters.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="colinear.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="modified_midpoint_stepper.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="nvector.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="nvector_differential.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="polar_transform.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="powell_minimiser.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="relative_difference.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="richardson_extrapolation.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+    <ClInclude Include="stoermer_stepper.hpp">
+      <Filter>numerics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ingridian.cpp">
+      <Filter>unconverted</Filter>
+    </ClCompile>
+    <ClCompile Include="tube.cpp">
+      <Filter>unconverted</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>application</Filter>
+    </ClCompile>
+    <ClCompile Include="lax_builtins.cpp">
+      <Filter>lax integration</Filter>
+    </ClCompile>
+    <ClCompile Include="view.cpp">
+      <Filter>visualisation</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>visualisation</Filter>
+    </ClCompile>
+    <ClCompile Include="geodesic.cpp">
+      <Filter>differential geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="kerr.cpp">
+      <Filter>differential geometry\charts</Filter>
+    </ClCompile>
+    <ClCompile Include="modified_midpoint_stepper.cpp">
+      <Filter>numerics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="builtins.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="charts.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="colours.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="defaults.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="differential_geometry.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="distortions.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="help.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="prelude.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="standard.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="start_work.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="visualisations.lax">
+      <Filter>lax code</Filter>
+    </None>
+    <None Include="work\aip_presentation.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="work\andrew.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="work\interferometer_demo.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="work\kerrfest_presentation.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="work\kerrfest_presentation_walkthrough.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="work\work.lax">
+      <Filter>lax code\work</Filter>
+    </None>
+    <None Include="kerr.lax">
+      <Filter>lax code\charts</Filter>
+    </None>
+    <None Include="kerr_visualisations.lax">
+      <Filter>lax code\charts</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="execute\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+</Project>

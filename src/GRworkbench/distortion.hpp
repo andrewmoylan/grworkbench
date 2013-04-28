@@ -2,7 +2,7 @@
 
 #include <string>
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/vector.hpp>
 #include "nvector.hpp"
 #include "opengl.hpp"

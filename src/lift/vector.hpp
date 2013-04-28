@@ -7,7 +7,8 @@
 #include <memory>
 #include <new>
 #include <numeric>
-#include <boost/bind.hpp>
+#include <functional>
+//#include <boost/bind.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
@@ -177,7 +178,7 @@ namespace lift
 
     template<typename U> vector<T, N>& operator/=(const U& that) 
     { 
-      for_each(begin(), end(), bind(assigned_divides<T, U>(), _1, that));
+      for_each(begin(), end(), bind(assigned_divides<T, U>(), std::placeholders::_1, that));
       return *this; 
     }
 
@@ -208,17 +209,23 @@ namespace lift
 
   template<typename T, size_t N> vector<T, N> operator*(const vector<T, N>& left, const typename scalar<T>::type& right)
   {
-    return vector<T, N>(make_transform_iterator(left.begin(), bind(multiplies<T, typename scalar<T>::type, T>(), _1, right)));
+	  return vector<T, N>(make_transform_iterator(left.begin(), 
+		  // bind(multiplies<T, typename scalar<T>::type, T>(), std::placeholders::_1, right)));
+		  std::function<T (const T&)>([&](const T& t) { return t * right; })));
   }
 
   template<typename T, size_t N> vector<T, N> operator/(const vector<T, N>& left, const typename scalar<T>::type& right)
   {
-    return vector<T, N>(make_transform_iterator(left.begin(), bind(divides<T, typename scalar<T>::type, T>(), _1, right)));
+    return vector<T, N>(make_transform_iterator(left.begin(), 
+		//bind(divides<T, typename scalar<T>::type, T>(), std::placeholders::_1, right)));
+		std::function<T (const T&)>([&](const T& t) { return t / right; })));
   }
 
   template<typename T, size_t N> vector<T, N> operator*(const typename scalar<T>::type& left, const vector<T, N>& right)
   {
-    return vector<T, N>(make_transform_iterator(right.begin(), bind(multiplies<typename scalar<T>::type, T, T>(), left, _1)));
+    return vector<T, N>(make_transform_iterator(right.begin(), 
+		//bind(multiplies<typename scalar<T>::type, T, T>(), left, std::placeholders::_1)));
+		std::function<T (const T&)>([&](const T& t) { return left * t; })));
   }
 
   template<typename T, size_t N> T inner_product(const vector<T, N>& left, const vector<T, N>& right)

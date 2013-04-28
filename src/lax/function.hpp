@@ -96,7 +96,7 @@ namespace lax_interpreter
 					static map<pair<string, vector<lax> >, lax> _;
 					const pair<string, vector<lax> > p(s, v);
 					const map<pair<string, vector<lax> >, lax>::const_iterator i(_.find(p));
-					return i != _.end() ? i->second : _.insert(make_pair(p, lax(shared_ptr<const value>(new implementation<F, N>(f, s, eager, v))))).first->second;
+					return i != _.end() ? i->second : _.insert(make_pair(p, lax(std::shared_ptr<const value>(new implementation<F, N>(f, s, eager, v))))).first->second;
 				}
 
 				virtual const lax evaluated() const

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace lax_interpreter
 {
@@ -9,10 +8,8 @@ namespace lax_interpreter
 
 	namespace values
 	{
-		using namespace std;
-		using namespace boost;
-
-		class value : public enable_shared_from_this<value>
+		
+		class value : public std::enable_shared_from_this<value>
 		{
 		public:
 			virtual ~value();
@@ -22,7 +19,7 @@ namespace lax_interpreter
 			virtual const lax bound_to(const lax& r) const;
 
 			virtual const bool is_call() const;
-			virtual void output(ostream&) const = 0;
+			virtual void output(std::ostream&) const = 0;
 
 			virtual const bool is_boolean() const;
 			virtual const bool is_character() const;

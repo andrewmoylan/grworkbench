@@ -19,17 +19,17 @@
 //    /*class view : public grwb::view
 //    {
 //    public:
-//      view(const shared_ptr<reissner_nordstrom>&);
+//      view(const std::shared_ptr<reissner_nordstrom>&);
 //      virtual ~view() {}
 //      virtual void draw() const;
 //
-//      const shared_ptr<reissner_nordstrom>& reissner_nordstrom_atlas() const
+//      const std::shared_ptr<reissner_nordstrom>& reissner_nordstrom_atlas() const
 //      {
 //        return atlas_;
 //      }
 //
 //    private:
-//      shared_ptr<reissner_nordstrom> atlas_;
+//      std::shared_ptr<reissner_nordstrom> atlas_;
 //    };*/
 //
 //    const double& mass() const
@@ -69,7 +69,7 @@
 //{  
 //  using lift::sqr;
 //
-////  inline reissner_nordstrom::view::view(const shared_ptr<reissner_nordstrom>& _) 
+////  inline reissner_nordstrom::view::view(const std::shared_ptr<reissner_nordstrom>& _) 
 ////    : grwb::view(_),
 ////			atlas_(_)
 ////  {
@@ -147,11 +147,11 @@
 //      m_(m),
 //			q_(q)
 //  {
-//    shared_ptr<chart> alpha_ext(new chart(interior(m, q)));
-//    shared_ptr<chart> beta_ext(new chart(interior(m, q)));
+//    std::shared_ptr<chart> alpha_ext(new chart(interior(m, q)));
+//    std::shared_ptr<chart> beta_ext(new chart(interior(m, q)));
 //    charts.insert(alpha_ext);
 //    charts.insert(beta_ext);
-//    shared_ptr<map> phi(new map(spherical_complement()));
+//    std::shared_ptr<map> phi(new map(spherical_complement()));
 //    maps.insert(make_pair(make_pair(alpha_ext, beta_ext), phi));
 //    maps.insert(make_pair(make_pair(beta_ext, alpha_ext), phi));
 //  }

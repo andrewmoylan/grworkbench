@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sstream>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/constant_iterator.hpp>
 #include "distortion.hpp"
 
@@ -18,7 +18,7 @@ namespace grwb
 			origin(o),
         dimension_in(m.size()),
         dimension_out(m[0].size())//,
-//        matrix_stub(boost::shared_ptr<CStub>())
+//        matrix_stub(std::shared_ptr<CStub>())
     {
 //      dimensionality_stub = stub()->Submenu("Dimensionality");
 //      dimensionality_stub->Slider("Dimensions in", (int*)&ui_dimension_in, optional<double>(1.), optional<double>(10.), 1);
@@ -108,7 +108,7 @@ namespace grwb
     //    else
     //      caption = "Basis " + s.str();
     //    
-    //    boost::shared_ptr<CStub> basis_stub = matrix_stub->Submenu(caption);
+    //    std::shared_ptr<CStub> basis_stub = matrix_stub->Submenu(caption);
     //    
     //    for (size_t j  = 0; j < dimension_in; ++j)
     //    {
@@ -148,8 +148,8 @@ namespace grwb
     /*std::size_t ui_dimension_in;
     std::size_t ui_dimension_out;*/
     
-//    boost::shared_ptr<CStub> dimensionality_stub;
-//    boost::shared_ptr<CStub> matrix_stub;
+//    std::shared_ptr<CStub> dimensionality_stub;
+//    std::shared_ptr<CStub> matrix_stub;
     
     linear_distortion& operator=(const linear_distortion&);
   }; // linear_distortion

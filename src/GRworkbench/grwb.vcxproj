@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B8118370-382C-4EB5-9012-A9ADCCCA27E7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Users\Antony\Downloads\boost_1_53_0\boost_1_53_0;..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>laxdebug.lib;opengl32.lib;glu32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)grwb.exe</OutputFile>
+      <AdditionalLibraryDirectories>../lax/lib; lax/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)grwb.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>lax.lib;opengl32.lib;glu32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)grwb.exe</OutputFile>
+      <AdditionalLibraryDirectories>../lax/lib;lax/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="curve_tangent.hpp" />
+    <ClInclude Include="derivative.hpp" />
+    <ClInclude Include="gradient.hpp" />
+    <ClInclude Include="karim.hpp" />
+    <ClInclude Include="kerr_circular_orbit.hpp" />
+    <ClInclude Include="newton_raphson.hpp" />
+    <ClInclude Include="parallel_curve.hpp" />
+    <ClInclude Include="reissner_nordstrom.hpp" />
+    <ClInclude Include="application.hpp" />
+    <ClInclude Include="cached_function.hpp" />
+    <ClInclude Include="lax_builtins.hpp" />
+    <ClInclude Include="lax_function.hpp" />
+    <ClInclude Include="lax_storage.hpp" />
+    <ClInclude Include="to_from_lax.hpp" />
+    <ClInclude Include="typed_lax_interface.hpp" />
+    <ClInclude Include="curve.hpp" />
+    <ClInclude Include="object.hpp" />
+    <ClInclude Include="opengl.hpp" />
+    <ClInclude Include="opengl_compound_list.hpp" />
+    <ClInclude Include="pane.hpp" />
+    <ClInclude Include="surface.hpp" />
+    <ClInclude Include="view.hpp" />
+    <ClInclude Include="window.hpp" />
+    <ClInclude Include="worldline.hpp" />
+    <ClInclude Include="distortion.hpp" />
+    <ClInclude Include="linear_distortion.hpp" />
+    <ClInclude Include="spherical_orthonormal.hpp" />
+    <ClInclude Include="atlas.hpp" />
+    <ClInclude Include="connecting_geodesic.hpp" />
+    <ClInclude Include="connecting_null_geodesic.hpp" />
+    <ClInclude Include="connection.hpp" />
+    <ClInclude Include="euclidean_separation.hpp" />
+    <ClInclude Include="geodesic.hpp" />
+    <ClInclude Include="metric.hpp" />
+    <ClInclude Include="orthonormal_tangent_basis.hpp" />
+    <ClInclude Include="parallel_transport.hpp" />
+    <ClInclude Include="point.hpp" />
+    <ClInclude Include="tensor.hpp" />
+    <ClInclude Include="kerr.hpp" />
+    <ClInclude Include="approx_equal.hpp" />
+    <ClInclude Include="brent_minimiser.hpp" />
+    <ClInclude Include="bulirsch_stoer.hpp" />
+    <ClInclude Include="bulirsch_stoer_parameters.hpp" />
+    <ClInclude Include="colinear.hpp" />
+    <ClInclude Include="constants.hpp" />
+    <ClInclude Include="matrix.hpp" />
+    <ClInclude Include="modified_midpoint_stepper.hpp" />
+    <ClInclude Include="nvector.hpp" />
+    <ClInclude Include="nvector_differential.hpp" />
+    <ClInclude Include="polar_transform.hpp" />
+    <ClInclude Include="powell_minimiser.hpp" />
+    <ClInclude Include="relative_difference.hpp" />
+    <ClInclude Include="richardson_extrapolation.hpp" />
+    <ClInclude Include="stoermer_stepper.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ingridian.cpp" />
+    <ClCompile Include="tube.cpp" />
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="lax_builtins.cpp" />
+    <ClCompile Include="view.cpp" />
+    <ClCompile Include="window.cpp" />
+    <ClCompile Include="geodesic.cpp" />
+    <ClCompile Include="kerr.cpp" />
+    <ClCompile Include="modified_midpoint_stepper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="builtins.lax" />
+    <None Include="charts.lax" />
+    <None Include="colours.lax" />
+    <None Include="defaults.lax" />
+    <None Include="differential_geometry.lax" />
+    <None Include="distortions.lax" />
+    <None Include="help.lax" />
+    <None Include="prelude.lax" />
+    <None Include="standard.lax" />
+    <None Include="start_work.lax" />
+    <None Include="visualisations.lax" />
+    <None Include="work\aip_presentation.lax" />
+    <None Include="work\andrew.lax" />
+    <None Include="work\interferometer_demo.lax" />
+    <None Include="work\kerrfest_presentation.lax" />
+    <None Include="work\kerrfest_presentation_walkthrough.lax" />
+    <None Include="work\work.lax" />
+    <None Include="kerr.lax" />
+    <None Include="kerr_visualisations.lax" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="execute\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

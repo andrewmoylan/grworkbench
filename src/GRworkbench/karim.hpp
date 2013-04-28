@@ -11,7 +11,7 @@
 //  template <class T> class geodesic_interferometer : public numerical_experiment<T>
 //  {
 //  public:
-//    explicit geodesic_interferometer(const shared_ptr<T>& _);
+//    explicit geodesic_interferometer(const std::shared_ptr<T>& _);
 //
 //  private:
 //    void reflect(const double& r, const double& interferometer_speed, const double& arm_length);
@@ -20,7 +20,7 @@
 //  template <class T> class karim_interferometer : public numerical_experiment<T>
 //  {
 //  public:
-//    explicit karim_interferometer(const shared_ptr<T>& _);
+//    explicit karim_interferometer(const std::shared_ptr<T>& _);
 //
 //  private:
 //    void reflect(const double& r, const double& interferometer_speed, const double& arm_length);
@@ -41,7 +41,7 @@
 //
 //namespace grwb
 //{
-//  template <class T> inline karim_interferometer<T>::karim_interferometer(const shared_ptr<T>& _)
+//  template <class T> inline karim_interferometer<T>::karim_interferometer(const std::shared_ptr<T>& _)
 //    : numerical_experiment<T>(_)
 //  {
 ////    this->add_distortion("Spherical to Orthonormal");
@@ -70,7 +70,7 @@
 //    //exit(EXIT_SUCCESS);
 //  }
 //
-//  template <class T> inline geodesic_interferometer<T>::geodesic_interferometer(const shared_ptr<T>& _)
+//  template <class T> inline geodesic_interferometer<T>::geodesic_interferometer(const std::shared_ptr<T>& _)
 //    : numerical_experiment<T>(_)
 //  {
 ////    this->add_distortion("Spherical to Orthonormal");
@@ -103,7 +103,7 @@
 //  {
 //    const double two_arm_length(2. * arm_length);
 //
-//    const shared_ptr<chart>& c(this->any_chart());
+//    const std::shared_ptr<chart>& c(this->any_chart());
 //
 //    const nvector<double> coordinate_direction(make_vector(1., 0., 0., interferometer_speed / r));
 //
@@ -158,7 +158,7 @@
 //  {
 //    const double two_arm_length(2. * arm_length);
 //
-//    const shared_ptr<chart>& c(this->any_chart());
+//    const std::shared_ptr<chart>& c(this->any_chart());
 //
 //    const nvector<double> coordinate_direction(make_vector(1., 0., 0., interferometer_speed / r));
 //

@@ -22,7 +22,7 @@
 ////
 ////      public:
 ////
-////        view(const shared_ptr<ingridian>& _)
+////        view(const std::shared_ptr<ingridian>& _)
 ////          : grwb::view(_)
 ////        {
 //////          stub->set_name("Ingridian");
@@ -74,10 +74,10 @@
 //    //ingridian::ingridian()
 //    //  : atlas(2)
 //    //{
-//    //  charts.insert(shared_ptr<chart>(new chart(chart())));
+//    //  charts.insert(std::shared_ptr<chart>(new chart(chart())));
 //    //}
 //
-//    //lift::registrar<view, ingridian::view> ingridian_registerer("Ingridian", boost::shared_ptr<ingridian>(new ingridian()));
+//    //lift::registrar<view, ingridian::view> ingridian_registerer("Ingridian", std::shared_ptr<ingridian>(new ingridian()));
 //
 //
 //}

@@ -7,7 +7,7 @@
 #include <memory>
 #include <new>
 #include <numeric>
-#include <boost/bind.hpp>
+//#include <boost/std::bind.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <boost/iterator/transform_iterator.hpp>
@@ -247,13 +247,13 @@ namespace grwb
 
     template<typename U> nvector<T>& operator*=(const U& right) 
     { 
-      for_each(begin(), end(), bind(lift::assigned_multiplies<T, U>(), _1, right));
+      for_each(begin(), end(), std::bind(lift::assigned_multiplies<T, U>(), std::placeholders::_1, right));
       return *this; 
     }
 
     template<typename U> nvector<T>& operator/=(const U& right) 
     { 
-      for_each(begin(), end(), bind(lift::assigned_divides<T, U>(), _1, right));
+      for_each(begin(), end(), std::bind(lift::assigned_divides<T, U>(), std::placeholders::_1, right));
       return *this; 
     }
 
@@ -315,7 +315,9 @@ namespace grwb
 
   template<typename T> nvector<T> operator*(const nvector<T>& left, const typename scalar<T>::type& right)
   {
-    return nvector<T>(left.size(), make_transform_iterator(left.begin(), bind(lift::multiplies<T, typename scalar<T>::type, T>(), _1, right)));
+	  return nvector<T>(left.size(), make_transform_iterator(left.begin(), 
+		  //std::bind(lift::multiplies<T, typename scalar<T>::type, T>(), std::placeholders::_1, right)));
+		  function<T (const T&)>([&](const T& t) { return t * right; })));
     //nvector<T> result(left);
     //for (nvector<T>::iterator i(result.begin()); i != result.end(); ++i)
     //{
@@ -325,7 +327,9 @@ namespace grwb
   }
   template<typename T> nvector<T> operator/(const nvector<T>& left, const typename scalar<T>::type& right)
   {
-    return nvector<T>(left.size(), make_transform_iterator(left.begin(), bind(lift::divides<T, typename scalar<T>::type, T>(), _1, right)));
+    return nvector<T>(left.size(), make_transform_iterator(left.begin(), 
+		//std::bind(lift::divides<T, typename scalar<T>::type, T>(), std::placeholders::_1, right)));
+		  function<T (const T&)>([&](const T& t) { return t / right; })));
     //nvector<T> result(left);
     //for (nvector<T>::iterator i(result.begin()); i != result.end(); ++i)
     //{
@@ -336,7 +340,10 @@ namespace grwb
 
   template<typename T> nvector<T> operator*(const typename scalar<T>::type& left, const nvector<T>& right)
   {
-    return nvector<T>(right.size(), make_transform_iterator(right.begin(), bind(lift::multiplies<typename scalar<T>::type, T, T>(), left, _1)));
+    return nvector<T>(right.size(), make_transform_iterator(right.begin(), 
+		//std::bind(lift::multiplies<typename scalar<T>::type, T, T>(), left, std::placeholders::_1)));
+       function<T (const T&)>([&](const T& t) { return left * t; })));
+
     //nvector<T> result(right);
     //for (nvector<T>::iterator i(result.begin()); i != result.end(); ++i)
     //{

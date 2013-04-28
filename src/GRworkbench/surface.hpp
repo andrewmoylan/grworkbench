@@ -58,7 +58,7 @@ namespace grwb
       view_surface& operator=(const view_surface&);
 		};
 
-		surface(view& v, const shared_ptr<surface_type>& p, const vector<double, 2>& a, const vector<double, 2>& b)
+		surface(view& v, const std::shared_ptr<surface_type>& p, const vector<double, 2>& a, const vector<double, 2>& b)
 			: object(v), _(p), x_range(a), y_range(b), f(*p, v), error(false)
 		{
 //			f.set_owner(*this);
@@ -223,7 +223,7 @@ namespace grwb
   private:
 		mutable view_surface f;
 
-    shared_ptr<surface_type> _;
+    std::shared_ptr<surface_type> _;
 		mutable opengl_compound_list display_lists;
 
 		struct triangle

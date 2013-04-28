@@ -47,7 +47,7 @@ namespace grwb
   };
 
 #ifdef _WIN32
-  window::window(const shared_ptr<pane>& p, const string& s)
+  window::window(const std::shared_ptr<pane>& p, const string& s)
       : pane_(p),
 			visible(true)
   {
@@ -93,7 +93,7 @@ namespace grwb
   }
 #else
 using namespace std;
-  window::window(const shared_ptr<pane>& p, const string& s)
+  window::window(const std::shared_ptr<pane>& p, const string& s)
     : pane_(p),
       visible(true)
   {

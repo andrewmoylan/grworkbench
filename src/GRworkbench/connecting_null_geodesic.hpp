@@ -1,7 +1,7 @@
 #pragma once
 
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/constant_iterator.hpp>
 #include "matrix.hpp"
 #include "powell_minimiser.hpp"
@@ -19,7 +19,7 @@ namespace grwb
 		class null_geodesic_shooter
 		{
 		public:
-			null_geodesic_shooter(const function<optional<shared_ptr<point> > (const double&)>& curve, const shared_ptr<point> & a, const shared_ptr<chart>& c, const nvector<nvector<double> >& tangent_basis, const double& null_guess, const double& guess)
+			null_geodesic_shooter(const function<optional<std::shared_ptr<point> > (const double&)>& curve, const std::shared_ptr<point> & a, const std::shared_ptr<chart>& c, const nvector<nvector<double> >& tangent_basis, const double& null_guess, const double& guess)
 				: guess_(make_vector(null_guess, guess)),
 				curve_(curve),
 				a_(a),
@@ -53,23 +53,23 @@ namespace grwb
 
 		private:
 			mutable nvector<double> guess_;
-			const function<optional<shared_ptr<point> > (const double&)>& curve_;
-			const shared_ptr<point> & a_;
-			const shared_ptr<chart>& chart_;
+			const function<optional<std::shared_ptr<point> > (const double&)>& curve_;
+			const std::shared_ptr<point> & a_;
+			const std::shared_ptr<chart>& chart_;
 			const nvector<nvector<double> >& basis;
 		};
 	}
 
 	using std::make_pair;
 
-	inline optional<pair<double, shared_ptr<tangent_flow> > > connecting_null_geodesic(const worldline& curve, const shared_ptr<point> & a, const double& guess)
+	inline optional<pair<double, std::shared_ptr<tangent_flow> > > connecting_null_geodesic(const worldline& curve, const std::shared_ptr<point> & a, const double& guess)
 	{
 		const static nvector<nvector<double> > polar_basis(make_vector(make_vector(0.01, 0.), make_vector(0., 0.01)));
 
-		const shared_ptr<chart>& c(a->valid_chart());
+		const std::shared_ptr<chart>& c(a->valid_chart());
 		const nvector<nvector<double> > basis(orthonormal_tangent_basis(a, c));
 
-		const shared_ptr<point>  b(*curve(guess));
+		const std::shared_ptr<point>  b(*curve(guess));
 
 		const nvector<double> va(*(*a)[c]), vb(*(*b)[c]);
 		const nvector<double> spacelike(vb.size() - 1, (inverse(basis) * (vb - va)).begin() + 1);
@@ -81,7 +81,7 @@ namespace grwb
 
 		optional<pair<nvector<double>, double> > r(pm(spacelike_polar, polar_basis));
 		if (!r)
-			return optional<pair<double, shared_ptr<tangent_flow> > >();
+			return optional<pair<double, std::shared_ptr<tangent_flow> > >();
 
 		const nvector<double> vr(from_polar_with_radius(r->first, 1.));
 		nvector<double> vr2(vr.size() + 1, make_constant_iterator(1.));
@@ -91,10 +91,10 @@ namespace grwb
 
 		const nvector<double> scales(min_euclidean_separation(geodesic(tangent_vector(a, c, solution)).as_worldline(), curve, shooter.last_guess())->first);
 
-		return make_pair(scales[1], shared_ptr<tangent_flow>(new tangent_flow(geodesic(tangent_vector(a, c, solution * scales[0])))));
+		return make_pair(scales[1], std::shared_ptr<tangent_flow>(new tangent_flow(geodesic(tangent_vector(a, c, solution * scales[0])))));
 	}
 
-	inline optional<pair<double, shared_ptr<tangent_flow> > > connecting_null_geodesic(const shared_ptr<point>& a, const shared_ptr<worldline>& curve, const double& guess)
+	inline optional<pair<double, std::shared_ptr<tangent_flow> > > connecting_null_geodesic(const std::shared_ptr<point>& a, const std::shared_ptr<worldline>& curve, const double& guess)
 	{
 		return connecting_null_geodesic(*curve, a, guess);
 	}

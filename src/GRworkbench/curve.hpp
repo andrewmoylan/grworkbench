@@ -1,9 +1,8 @@
 #pragma once
 
-#include <boost/enable_shared_from_this.hpp>
 #include <boost/function.hpp>
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <lift/vector.hpp>
 #include "approx_equal.hpp"
 #include "colinear.hpp"
@@ -13,11 +12,8 @@
 namespace grwb
 {
   using std::pair;
-  using boost::enable_shared_from_this;
   using boost::function;
   using boost::optional;
-  using boost::shared_ptr;
-  using boost::weak_ptr;
   using lift::vector;
 
   class point;
@@ -46,11 +42,11 @@ namespace grwb
 
     struct idle
     {
-      idle(const shared_ptr<curve>& c) : _c(c) {}
+      idle(const std::shared_ptr<curve>& c) : _c(c) {}
       const weak_ptr<curve> _c;
       void operator()() const
       {
-        if (shared_ptr<curve> c = _c.lock())
+        if (std::shared_ptr<curve> c = _c.lock())
           if (c->refine())
             application::push(*this);
       }
@@ -58,7 +54,7 @@ namespace grwb
     };
 
   public:
-    curve(const shared_ptr<function<optional<T> (const double&)> >& f, const double& a, const double& b, const int s, const vector<double, 3>& colour, view& v)
+    curve(const std::shared_ptr<function<optional<T> (const double&)> >& f, const double& a, const double& b, const int s, const vector<double, 3>& colour, view& v)
         : _(f),
         begin(a),
         end(b),
@@ -242,7 +238,7 @@ namespace grwb
     int samples;
     vector<double, 3> colour_;
 
-    const shared_ptr<function<optional<T> (const double&)> > _;
+    const std::shared_ptr<function<optional<T> (const double&)> > _;
     curve& operator=(const curve&);
   };
 }

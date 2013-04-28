@@ -22,7 +22,7 @@ namespace lax_interpreter
   template<> class to_value<TYPE > \
   { \
   public: \
-    const shared_ptr<const values::value> operator()(const TYPE& p) const \
+    const std::shared_ptr<const values::value> operator()(const TYPE& p) const \
     { \
 		return ::grwb::lax_integration::values::storage<TYPE >::make(p, NAME).value(); \
     } \
@@ -31,7 +31,7 @@ namespace lax_interpreter
   template<> class from_value<TYPE > \
   { \
   public: \
-    const TYPE operator()(const shared_ptr<const values::value>& p) const \
+    const TYPE operator()(const std::shared_ptr<const values::value>& p) const \
     { \
 		const optional<TYPE > o(::grwb::lax_integration::values::storage<TYPE >::extract_from(lax(p))); \
 			if (o) \
@@ -42,21 +42,21 @@ namespace lax_interpreter
   }
 
 #define ENABLE_FUNCTION_STORAGE(BOOST_FUNCTION_TYPE, NAME) \
-  template<> class to_value<shared_ptr<BOOST_FUNCTION_TYPE > > \
+  template<> class to_value<std::shared_ptr<BOOST_FUNCTION_TYPE > > \
   { \
   public: \
-    const shared_ptr<const values::value> operator()(const shared_ptr<BOOST_FUNCTION_TYPE >& p) const \
+    const std::shared_ptr<const values::value> operator()(const std::shared_ptr<BOOST_FUNCTION_TYPE >& p) const \
     { \
-		return ::grwb::lax_integration::values::lax_function<shared_ptr<BOOST_FUNCTION_TYPE > >::make(p, NAME).value(); \
+		return ::grwb::lax_integration::values::lax_function<std::shared_ptr<BOOST_FUNCTION_TYPE > >::make(p, NAME).value(); \
     } \
   }; \
 \
-  template<> class from_value<shared_ptr<BOOST_FUNCTION_TYPE > > \
+  template<> class from_value<std::shared_ptr<BOOST_FUNCTION_TYPE > > \
   { \
   public: \
-    const shared_ptr<BOOST_FUNCTION_TYPE > operator()(const shared_ptr<const values::value>& p) const \
+    const std::shared_ptr<BOOST_FUNCTION_TYPE > operator()(const std::shared_ptr<const values::value>& p) const \
     { \
-		const optional<shared_ptr<BOOST_FUNCTION_TYPE > > o(::grwb::lax_integration::values::lax_function<shared_ptr<BOOST_FUNCTION_TYPE > >::extract_from(lax(p))); \
+		const optional<std::shared_ptr<BOOST_FUNCTION_TYPE > > o(::grwb::lax_integration::values::lax_function<std::shared_ptr<BOOST_FUNCTION_TYPE > >::extract_from(lax(p))); \
 			if (o) \
 				return *o; \
 			else \
@@ -64,12 +64,12 @@ namespace lax_interpreter
     } \
   }
 
-  typedef pair<shared_ptr<window>, shared_ptr<view> > visualisation_window_type;
+  typedef pair<std::shared_ptr<window>, std::shared_ptr<view> > visualisation_window_type;
 
-  ENABLE_STORAGE(shared_ptr<point>, "[point]");
+  ENABLE_STORAGE(std::shared_ptr<point>, "[point]");
   ENABLE_STORAGE(visualisation_window_type, "[visualisation window]");
-  ENABLE_STORAGE(shared_ptr<distortion>, "[distortion]");
-  ENABLE_STORAGE(shared_ptr<tangent_vector>, "[tangent vector]");
+  ENABLE_STORAGE(std::shared_ptr<distortion>, "[distortion]");
+  ENABLE_STORAGE(std::shared_ptr<tangent_vector>, "[tangent vector]");
 
   ENABLE_FUNCTION_STORAGE(worldline, "[worldline]");
 	ENABLE_FUNCTION_STORAGE(tangent_flow, "[real -> tangent vector]");
@@ -82,7 +82,7 @@ namespace lax_interpreter
   template <class T> class from_value<optional<T> >
   {
   public:
-    const optional<T> operator()(const shared_ptr<const values::value>& p) const
+    const optional<T> operator()(const std::shared_ptr<const values::value>& p) const
     {
       lax l(p);
       return (l == builtins::nil()) ? optional<T>() : optional<T>(l.operator const T());
@@ -92,7 +92,7 @@ namespace lax_interpreter
   template <class T> class to_value<optional<T> >
   {
   public:
-    const shared_ptr<const values::value> operator()(const optional<T>& o) const
+    const std::shared_ptr<const values::value> operator()(const optional<T>& o) const
     {
       return (!o) ? builtins::nil().value() : to_value<T>()(*o);
     }
@@ -101,7 +101,7 @@ namespace lax_interpreter
   template <class T> class from_value<nvector<T> >
   {
   public:
-    const nvector<T> operator()(const shared_ptr<const values::value>& p) const
+    const nvector<T> operator()(const std::shared_ptr<const values::value>& p) const
     {
       lax l(p);
       std::vector<T> _;
@@ -114,7 +114,7 @@ namespace lax_interpreter
   template <class T> class to_value<nvector<T> >
   {
   public:
-    const shared_ptr<const values::value> operator()(const nvector<T>& v) const
+    const std::shared_ptr<const values::value> operator()(const nvector<T>& v) const
     {
       lax l(lax_interpreter::builtins::list()(int(v.size())));
       for (size_t i(0); i < v.size(); ++i)
@@ -126,7 +126,7 @@ namespace lax_interpreter
   template <size_t N, class T> class from_value< ::lift::vector<T, N> >
   {
   public:
-    const ::lift::vector<T, N> operator()(const shared_ptr<const values::value>& p) const
+    const ::lift::vector<T, N> operator()(const std::shared_ptr<const values::value>& p) const
     {
       lax l(p);
       std::vector<T> _;
@@ -139,7 +139,7 @@ namespace lax_interpreter
   template <size_t N, class T> class to_value< lift::vector<T, N> >
   {
   public:
-    const shared_ptr<const values::value> operator()(const lift::vector<T, N>& v) const
+    const std::shared_ptr<const values::value> operator()(const lift::vector<T, N>& v) const
     {
       lax l(lax_interpreter::builtins::list()(int(N)));
       for (size_t i(0); i < N; ++i)
@@ -151,7 +151,7 @@ namespace lax_interpreter
 	template <class S, class T> class from_value<std::pair<S, T> >
 	{
 	public:
-		const std::pair<S, T> operator()(const shared_ptr<const values::value>& p) const
+		const std::pair<S, T> operator()(const std::shared_ptr<const values::value>& p) const
 		{
 			lax l(p);
 			return std::pair<S, T>(l(0), l(1));
@@ -161,7 +161,7 @@ namespace lax_interpreter
 	template <class S, class T> class to_value<std::pair<S, T> >
 	{
 	public:
-		const shared_ptr<const values::value> operator()(const std::pair<S, T>& p) const
+		const std::shared_ptr<const values::value> operator()(const std::pair<S, T>& p) const
 		{
 			return values::list::make(2, std::vector<lax>())(p.first)(p.second).value();
 		}
@@ -170,7 +170,7 @@ namespace lax_interpreter
   template<class T, class U> class to_value<differential<T, U> >
   {
   public:
-    const shared_ptr<const values::value> operator()(const differential<T, U>& x) const
+    const std::shared_ptr<const values::value> operator()(const differential<T, U>& x) const
     {
       return lax_interpreter::builtins::list()(2)(lax(to_value<T>()(value(x))))(lax(to_value<U>()(gradient(x)))).value();
     }
@@ -179,7 +179,7 @@ namespace lax_interpreter
   template<class T, class U> class from_value<differential<T, U> >
   {
   public:
-    const differential<T, U> operator()(const shared_ptr<const values::value>& v) const
+    const differential<T, U> operator()(const std::shared_ptr<const values::value>& v) const
     {
       lax x(v);
       return differential<T, U>(x(0).operator const T(), x(1).operator const U());

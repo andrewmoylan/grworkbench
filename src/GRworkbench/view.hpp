@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/weak_ptr.hpp>
 #include <boost/function.hpp>
 #include <lift/vector.hpp>
@@ -21,8 +21,8 @@ namespace grwb
 	using std::map;
 	using lift::vector;
 	using boost::optional;
-  using boost::shared_ptr;
-	using boost::weak_ptr;
+  using std::shared_ptr;
+	;
 
   template<typename T> class nvector;
 
@@ -85,9 +85,9 @@ namespace grwb
     view();
     virtual ~view() {}
     
-    optional<vector<double, 3> > operator()(const shared_ptr<point> &) const;
+    optional<vector<double, 3> > operator()(const std::shared_ptr<point> &) const;
     optional<vector<double, 3> > operator()(const nvector<double>&) const;
-    optional<pair<vector<double, 3>, vector<double, 3> > > operator()(const shared_ptr<tangent_vector>&) const;
+    optional<pair<vector<double, 3>, vector<double, 3> > > operator()(const std::shared_ptr<tangent_vector>&) const;
 		template <class T> optional<vector<double, 3> > operator()(const optional<T> & p) const
 		{
 			return p ? operator()(*p) : optional<vector<double, 3> >();
@@ -103,25 +103,25 @@ namespace grwb
 
 		void clear_all();    
 
-    list<shared_ptr<object> > objects;
+    list<std::shared_ptr<object> > objects;
 
-		void freeze_spacetime_curve(const shared_ptr<worldline>&);
-		void freeze_coordinate_curve(const shared_ptr<coordinate_line>&);
+		void freeze_spacetime_curve(const std::shared_ptr<worldline>&);
+		void freeze_coordinate_curve(const std::shared_ptr<coordinate_line>&);
 
-		void add_coordinate_curve(const shared_ptr<coordinate_line>&, const double&, const double&, const int, const vector<double, 3>&);
-		void add_spacetime_curve(const shared_ptr<worldline>&, const double&, const double&, const int, const vector<double, 3>&);
-    void add_coordinate_surface(const shared_ptr<coordinate_surface>&, const vector<double, 2>&, const vector<double, 2>&);
-		void add_spacetime_surface(const shared_ptr<spacetime_surface>&, const vector<double, 2>&, const vector<double, 2>&);
-		void add_vector(const shared_ptr<tangent_vector>&, const vector<double, 3>&);
+		void add_coordinate_curve(const std::shared_ptr<coordinate_line>&, const double&, const double&, const int, const vector<double, 3>&);
+		void add_spacetime_curve(const std::shared_ptr<worldline>&, const double&, const double&, const int, const vector<double, 3>&);
+    void add_coordinate_surface(const std::shared_ptr<coordinate_surface>&, const vector<double, 2>&, const vector<double, 2>&);
+		void add_spacetime_surface(const std::shared_ptr<spacetime_surface>&, const vector<double, 2>&, const vector<double, 2>&);
+		void add_vector(const std::shared_ptr<tangent_vector>&, const vector<double, 3>&);
 
-		void remove_coordinate_curve(const shared_ptr<coordinate_line>&);
-		void remove_spacetime_curve(const shared_ptr<worldline>&);
-    void remove_coordinate_surface(const shared_ptr<coordinate_surface>&);
-		void remove_spacetime_surface(const shared_ptr<spacetime_surface>&);
-		void remove_vector(const shared_ptr<tangent_vector>&);
+		void remove_coordinate_curve(const std::shared_ptr<coordinate_line>&);
+		void remove_spacetime_curve(const std::shared_ptr<worldline>&);
+    void remove_coordinate_surface(const std::shared_ptr<coordinate_surface>&);
+		void remove_spacetime_surface(const std::shared_ptr<spacetime_surface>&);
+		void remove_vector(const std::shared_ptr<tangent_vector>&);
     
-    list<shared_ptr<distortion> > distortions;
-    multiset<shared_ptr<chart> > charts;
+    list<std::shared_ptr<distortion> > distortions;
+    multiset<std::shared_ptr<chart> > charts;
 
 		void dirty();
      
@@ -130,20 +130,20 @@ namespace grwb
 		mutable bool vectors_dirty;
 		mutable GLint vectors_gl_list;
 
-		template <class T> void add_curve(const shared_ptr<function<optional<T> (const double&)> >&, const double&, const double&, const int, const vector<double, 3>&, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >&);
-		template <class T> void remove_curve(const shared_ptr<function<optional<T> (const double&)> >&, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >&);
-		template <class T> void freeze_curve(const shared_ptr<function<optional<T> (const double&)> >&, map<shared_ptr<function<optional<T> (const double&)> >, shared_ptr<curve<T> > >&);
+		template <class T> void add_curve(const std::shared_ptr<function<optional<T> (const double&)> >&, const double&, const double&, const int, const vector<double, 3>&, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >&);
+		template <class T> void remove_curve(const std::shared_ptr<function<optional<T> (const double&)> >&, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >&);
+		template <class T> void freeze_curve(const std::shared_ptr<function<optional<T> (const double&)> >&, map<std::shared_ptr<function<optional<T> (const double&)> >, std::shared_ptr<curve<T> > >&);
 
-		map<shared_ptr<worldline>, shared_ptr<curve<shared_ptr<point> > > > spacetime_curves;
-		map<shared_ptr<function<optional<nvector<double> > (const double&)> >, shared_ptr<curve<nvector<double> > > > coordinate_curves;
-    map<shared_ptr<coordinate_surface>, shared_ptr<surface<nvector<double> > > > surfaces;
-		map<shared_ptr<spacetime_surface>, shared_ptr<surface<shared_ptr<point> > > > spacetime_surfaces;
-		map<shared_ptr<tangent_vector>, vector<double, 3> > vectors;
+		map<std::shared_ptr<worldline>, std::shared_ptr<curve<std::shared_ptr<point> > > > spacetime_curves;
+		map<std::shared_ptr<function<optional<nvector<double> > (const double&)> >, std::shared_ptr<curve<nvector<double> > > > coordinate_curves;
+    map<std::shared_ptr<coordinate_surface>, std::shared_ptr<surface<nvector<double> > > > surfaces;
+		map<std::shared_ptr<spacetime_surface>, std::shared_ptr<surface<std::shared_ptr<point> > > > spacetime_surfaces;
+		map<std::shared_ptr<tangent_vector>, vector<double, 3> > vectors;
 
 		void ProjectCursor() const;
     mutable vector<unsigned int, 2> size_;
 		mutable camera camera_;
-		shared_ptr<grid> plane_;
+		std::shared_ptr<grid> plane_;
 		mutable vector<double, 3> Mouse;
     mutable vector<signed int, 2> iMouse;
 

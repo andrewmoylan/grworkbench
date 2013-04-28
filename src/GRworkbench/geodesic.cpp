@@ -2,7 +2,7 @@
 #include <map>
 
 #include <boost/optional.hpp>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include <boost/weak_ptr.hpp>
 #include "atlas.hpp"
 #include "bulirsch_stoer.hpp"
@@ -17,34 +17,34 @@ namespace grwb
   const double negative_infinity(-std::numeric_limits<double>::infinity());
 	const size_t geodesic::max_recursion_ = 15;
 
-  geodesic::geodesic(const tangent_vector& t) : least_upper_bound_(positive_infinity), greatest_lower_bound_(negative_infinity), cache_(new std::map<double, shared_ptr<tangent_vector> >)
+  geodesic::geodesic(const tangent_vector& t) : least_upper_bound_(positive_infinity), greatest_lower_bound_(negative_infinity), cache_(new std::map<double, std::shared_ptr<tangent_vector> >)
   {
-    cache_->insert(cache_value_type(0, shared_ptr<tangent_vector>(new tangent_vector(t))));
+    cache_->insert(cache_value_type(0, std::shared_ptr<tangent_vector>(new tangent_vector(t))));
   }
 
-  optional<shared_ptr<point> > geodesic::value(const double& t) const
+  optional<std::shared_ptr<point> > geodesic::value(const double& t) const
   {
     return operator()(t, 0.).second;
   }
 
-  pair<double, optional<shared_ptr<point> > > geodesic::operator()(const double& t, const double& epsilon) const
+  pair<double, optional<std::shared_ptr<point> > > geodesic::operator()(const double& t, const double& epsilon) const
   {
-    typedef pair<double, optional<shared_ptr<point> > > return_type;
+    typedef pair<double, optional<std::shared_ptr<point> > > return_type;
 
     if (t >= least_upper_bound_)
-      return return_type(least_upper_bound_, optional<shared_ptr<point> >());
+      return return_type(least_upper_bound_, optional<std::shared_ptr<point> >());
     else if (t <= greatest_lower_bound_)
-      return return_type(greatest_lower_bound_, optional<shared_ptr<point> >());
+      return return_type(greatest_lower_bound_, optional<std::shared_ptr<point> >());
 
     cache_iterator_type initial_data(get_initial_data(t));
 
     if (fabs(initial_data->first - t) <= epsilon)
-      return return_type(initial_data->first, optional<shared_ptr<point> >(initial_data->second->context()));
+      return return_type(initial_data->first, optional<std::shared_ptr<point> >(initial_data->second->context()));
 
     optional<cache_iterator_type> result(advance(*initial_data->second, initial_data->first, t));
 
     if (result)
-      return return_type(t, optional<shared_ptr<point> >((*result)->second->context()));
+      return return_type(t, optional<std::shared_ptr<point> >((*result)->second->context()));
 
     if (t > 0)
     {
@@ -57,18 +57,18 @@ namespace grwb
       //log_cout << "Greatest lower bound set to " << t << ".\n";
     }
 
-    return return_type(t, optional<shared_ptr<point> >());
+    return return_type(t, optional<std::shared_ptr<point> >());
   }
 
-  optional<shared_ptr<tangent_vector> > geodesic::operator()(const double& t) const
+  optional<std::shared_ptr<tangent_vector> > geodesic::operator()(const double& t) const
   {
     if (!value(t))
-      return optional<shared_ptr<tangent_vector> >();
+      return optional<std::shared_ptr<tangent_vector> >();
 
     return cache_->find(t)->second;
   }
 
-  geodesic::geodesic_callback::geodesic_callback(const shared_ptr<chart>& c)
+  geodesic::geodesic_callback::geodesic_callback(const std::shared_ptr<chart>& c)
     : _(c)
   {
   }
@@ -109,14 +109,14 @@ namespace grwb
 
   optional<geodesic::cache_iterator_type> geodesic::advance(const tangent_vector& tangent, const double& from_t, const double& to_t, size_t recursion) const
   {
-    const shared_ptr<point>& origin(tangent.context());
+    const std::shared_ptr<point>& origin(tangent.context());
 
     if (recursion > max_recursion_)
       return optional<cache_iterator_type>();
 
     //log_cout << "  Geodesic: " << from_t << " -> " << to_t << endl;
 
-    for (set<shared_ptr<chart> >::const_iterator i(charts().begin()++); i != charts().end(); ++i)
+    for (set<std::shared_ptr<chart> >::const_iterator i(charts().begin()++); i != charts().end(); ++i)
       if ((*origin)[*i] && tangent[*i])
       {
         optional<cache_iterator_type> result(advance_on_chart(*i, *(*origin)[*i], *tangent[*i], from_t, to_t));
@@ -130,16 +130,16 @@ namespace grwb
 
   using lift::make_vector;
 
-  optional<geodesic::cache_iterator_type> geodesic::advance_on_chart(const shared_ptr<chart>& c, const nvector<double>& x, const nvector<double>& dx, const double& from_t, const double& to_t) const
+  optional<geodesic::cache_iterator_type> geodesic::advance_on_chart(const std::shared_ptr<chart>& c, const nvector<double>& x, const nvector<double>& dx, const double& from_t, const double& to_t) const
   {
     bulirsch_stoer<vector<nvector<double>, 2>, modified_midpoint_stepper> solver((geodesic_callback(c)), from_t, make_vector(x, dx));
 
     if (!solver.step(to_t))
       return optional<cache_iterator_type>();
 
-    shared_ptr<point> dest(new point(c, solver.y()[0]));
+    std::shared_ptr<point> dest(new point(c, solver.y()[0]));
     tangent_vector tv(dest, c, solver.y()[1]);
 
-    return optional<cache_iterator_type>(cache_->insert(cache_value_type(to_t, shared_ptr<tangent_vector>(new tangent_vector(tv)))).first);
+    return optional<cache_iterator_type>(cache_->insert(cache_value_type(to_t, std::shared_ptr<tangent_vector>(new tangent_vector(tv)))).first);
   }
 }

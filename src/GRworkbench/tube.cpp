@@ -1,5 +1,5 @@
 //#include <boost/optional.hpp>
-//#include <boost/shared_ptr.hpp>
+#include <memory>
 //#include <lift/registry.hpp>
 //#include <lift/vector.hpp>
 //#include "nvector.hpp"
@@ -19,7 +19,7 @@
 //  //  tube()
 //  ////    : atlas(2)
 //  //  {
-//  //    shared_ptr<chart> alpha(new chart(cartesian()));
+//  //    std::shared_ptr<chart> alpha(new chart(cartesian()));
 //  //    charts.insert(alpha);
 //  //  }
 //
@@ -29,7 +29,7 @@
 ////
 ////    public:
 ////
-////      view(const shared_ptr<tube>& _)
+////      view(const std::shared_ptr<tube>& _)
 ////        : grwb::view(_), atlas_(_)
 ////      {
 //////        stub->set_name("Tube");
@@ -44,14 +44,14 @@
 ////        grwb::view::draw();
 ////      }
 ////
-////      const shared_ptr<tube>& tube_atlas() const
+////      const std::shared_ptr<tube>& tube_atlas() const
 ////      {
 ////        return atlas_;
 ////      }
 ////
 ////    private:
 ////
-////      shared_ptr<tube> atlas_;
+////      std::shared_ptr<tube> atlas_;
 ////
 ////    };
 //
@@ -90,7 +90,7 @@
 //  /*namespace
 //  {
 //
-//    lift::registrar<view, tube::view> tube_registerer("Tube", boost::shared_ptr<tube>(new tube()));
+//    lift::registrar<view, tube::view> tube_registerer("Tube", std::shared_ptr<tube>(new tube()));
 //
 //  }*/
 //
