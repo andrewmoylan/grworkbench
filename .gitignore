@@ -19,6 +19,11 @@
 Release/
 Debug/
 *.sdf
+*.obj
+*.tlog
+*.log
+*.idb
+*.pdb
 
 # Visual Studio solution upgrade backup and log
 Backup/

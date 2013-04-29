@@ -9,10 +9,10 @@
 #include <numeric>
 #include <functional>
 //#include <boost/bind.hpp>
-#include <boost/iterator/indirect_iterator.hpp>
-#include <boost/iterator/reverse_iterator.hpp>
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/iterator/zip_iterator.hpp>
+//#include <boost/iterator/indirect_iterator.hpp>
+//#include <boost/iterator/reverse_iterator.hpp>
+//#include <boost/iterator/transform_iterator.hpp>
+//#include <boost/iterator/zip_iterator.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include "functors.hpp"
@@ -35,8 +35,8 @@ namespace lift
     typedef const T& const_reference;
     typedef T* iterator;
     typedef const T* const_iterator;
-    typedef boost::reverse_iterator<iterator> reverse_iterator;
-    typedef boost::reverse_iterator<const_iterator> const_reverse_iterator;
+    //typedef boost::reverse_iterator<iterator> reverse_iterator;
+    //typedef boost::reverse_iterator<const_iterator> const_reverse_iterator;
 
     iterator begin() { return reinterpret_cast<pointer>(_); }
     const_iterator begin() const { return reinterpret_cast<const_pointer>(_); }
@@ -194,7 +194,7 @@ namespace lift
   };
 
   using boost::make_transform_iterator;
-  using boost::make_tuple;
+  using std::make_tuple;
   using boost::make_zip_iterator;
 
   template<typename T, size_t N> vector<T, N> operator+(const vector<T, N>& left, const vector<T, N>& right)

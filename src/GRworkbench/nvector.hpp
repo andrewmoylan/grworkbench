@@ -19,7 +19,8 @@
 namespace grwb
 {
 
-  using boost::make_tuple;
+
+    using std::make_tuple;
   using boost::make_zip_iterator;
 
   template<typename T> class nvector
@@ -226,22 +227,22 @@ namespace grwb
     template<typename U> nvector<T>& operator+=(const nvector<U>& right) 
     {
       same_size(*this, right);
-      for_each(make_zip_iterator(make_tuple(begin(), right.begin())), make_zip_iterator(make_tuple(end(), right.end())), lift::tuple_assigned_plus<T, U>());
-      //iterator i(begin());
-      //nvector<U>::const_iterator j(right.begin());
-      //for (; i != end(); ++i, ++j)
-      //  *i += *j;
+      //for_each(make_zip_iterator(make_tuple(begin(), right.begin())), make_zip_iterator(make_tuple(end(), right.end())), lift::tuple_assigned_plus<T, U>());
+      iterator i(begin());
+      nvector<U>::const_iterator j(right.begin());
+      for (; i != end(); ++i, ++j)
+        *i += *j;
       return *this; 
     }
 
     template<typename U> nvector<T>& operator-=(const nvector<U>& right) 
     { 
       same_size(*this, right);
-      for_each(make_zip_iterator(make_tuple(begin(), right.begin())), make_zip_iterator(make_tuple(end(), right.end())), lift::tuple_assigned_minus<T, U>());
-      //iterator i(begin());
-      //nvector<U>::const_iterator j(right.begin());
-      //for (; i != end(); ++i, ++j)
-      //  *i -= *j;
+      //for_each(make_zip_iterator(make_tuple(begin(), right.begin())), make_zip_iterator(make_tuple(end(), right.end())), lift::tuple_assigned_minus<T, U>());
+      iterator i(begin());
+      nvector<U>::const_iterator j(right.begin());
+      for (; i != end(); ++i, ++j)
+        *i -= *j;
       return *this; 
     }
 
@@ -288,29 +289,30 @@ namespace grwb
 {
 
   using lift::scalar;
+  using std::make_tuple;
 
   template<typename T> nvector<T> operator+(const nvector<T>& left, const nvector<T>& right)
   {
     same_size(left, right);
-    //nvector<T> result(left);
-    //nvector<T>::iterator i(result.begin());
-    //nvector<T>::const_iterator j(right.begin());
-    //for (; i != result.end(); ++i, ++j)
-    //  *i = *i + *j;
-    //return result;
-    return nvector<T>(left.size(), make_transform_iterator(make_zip_iterator(make_tuple(left.begin(), right.begin())), lift::tuple_plus<T>()));
+    nvector<T> result(left);
+    nvector<T>::iterator i(result.begin());
+    nvector<T>::const_iterator j(right.begin());
+    for (; i != result.end(); ++i, ++j)
+      *i = *i + *j;
+    return result;
+    //return nvector<T>(left.size(), make_transform_iterator(make_zip_iterator(make_tuple(left.begin(), right.begin())), lift::tuple_plus<T>()));
   }
 
   template<typename T> nvector<T> operator-(const nvector<T>& left, const nvector<T>& right)
   {
     same_size(left, right);
-    //nvector<T> result(left);
-    //nvector<T>::iterator i(result.begin());
-    //nvector<T>::const_iterator j(right.begin());
-    //for (; i != result.end(); ++i, ++j)
-    //  *i = *i - *j;
-    //return result;
-    return nvector<T>(left.size(), make_transform_iterator(make_zip_iterator(make_tuple(left.begin(), right.begin())), lift::tuple_minus<T>()));
+    nvector<T> result(left);
+    nvector<T>::iterator i(result.begin());
+    nvector<T>::const_iterator j(right.begin());
+    for (; i != result.end(); ++i, ++j)
+      *i = *i - *j;
+    return result;
+    //return nvector<T>(left.size(), make_transform_iterator(make_zip_iterator(make_tuple(left.begin(), right.begin())), lift::tuple_minus<T>()));
   }
 
   template<typename T> nvector<T> operator*(const nvector<T>& left, const typename scalar<T>::type& right)

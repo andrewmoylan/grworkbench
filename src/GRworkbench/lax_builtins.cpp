@@ -408,6 +408,13 @@ namespace grwb
 
 			typedef pair<std::shared_ptr<window>, std::shared_ptr<view> > visualisation_window_type;
 
+            bool tuple_sort()
+            {
+                auto a = std::make_tuple(1.0);
+                auto b = std::make_tuple(2.0);
+                return a < b;
+            }
+
 			DEFINE_LAX_BUILTIN(const lax (const double&), detail::scale_camera_speed, scale_camera_speed, false);
 			DEFINE_CACHED_LAX_BUILTIN(const visualisation_window_type (const string&), detail::visualisation_window, visualisation_window, false);
 			DEFINE_LAX_BUILTIN(const lax (const visualisation_window_type &), detail::clear_all_from_window, clear_all_from_window, false);
@@ -440,22 +447,22 @@ namespace grwb
 			DEFINE_LAX_BUILTIN(const lax (const std::shared_ptr<chart>&, const std::shared_ptr<chart>&, const std::shared_ptr<inter_chart_map>&), detail::add_map_between_charts, add_map_between_charts, false);
 			DEFINE_LAX_BUILTIN(const lax (const std::shared_ptr<chart>&, const std::shared_ptr<chart>&), detail::remove_map_between_charts, remove_map_between_charts, false);
 			
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<distortion> (const nvector<nvector<double> >&, const nvector<double>&), detail::linear_distortion, linear_distortion, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<distortion> (const nvector<nvector<double> >&, const nvector<double>&), detail::linear_distortion, linear_distortion, false);
 			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<distortion> (), detail::spherical_to_orthonormal_distortion, spherical_to_orthonormal_distortion, false);
 
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<chart> (const double&, const double&, const double&, const int), detail::boyer_lindquist_in_region, boyer_lindquist_in_region, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<chart> (const double&, const double&, const double&, const int), detail::boyer_lindquist_in_region, boyer_lindquist_2_in_region, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<chart> (const double&, const double&, const double&, const int), detail::boyer_lindquist_in_region, boyer_lindquist_in_region, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<chart> (const double&, const double&, const double&, const int), detail::boyer_lindquist_in_region, boyer_lindquist_2_in_region, false);
 			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<inter_chart_map> (), detail::spherical_revolve, spherical_revolve, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<chart> (const double&, const double&, const double&, const bool), detail::kerr_coordinates, kerr_coordinates, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<chart> (const double&, const double&, const double&, const bool), detail::kerr_coordinates, kerr_coordinates_2, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<inter_chart_map> (const double&, const double&, const double&, const int, const bool, const bool), detail::boyer_lindquist_to_kerr_coordinates, boyer_lindquist_to_kerr_coordinates, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<chart> (const double&, const double&, const double&, const bool), detail::kerr_coordinates, kerr_coordinates, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<chart> (const double&, const double&, const double&, const bool), detail::kerr_coordinates, kerr_coordinates_2, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<inter_chart_map> (const double&, const double&, const double&, const int, const bool, const bool), detail::boyer_lindquist_to_kerr_coordinates, boyer_lindquist_to_kerr_coordinates, false);
 
-			DEFINE_CACHED_LAX_BUILTIN(optional<std::shared_ptr<point> > (const std::shared_ptr<chart>&, const nvector<double>&), detail::point_on_chart, point_on_chart, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<tangent_vector> (const std::shared_ptr<point>&, const std::shared_ptr<chart>&, const nvector<double>&), detail::tangent_vector_at_point_on_chart, tangent_vector_at_point_on_chart, false);
+			DEFINE_CACHED_LAX_BUILTIN(const optional<std::shared_ptr<point> > (const std::shared_ptr<chart>&, const nvector<double>&), detail::point_on_chart, point_on_chart, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<tangent_vector> (const std::shared_ptr<point>&, const std::shared_ptr<chart>&, const nvector<double>&), detail::tangent_vector_at_point_on_chart, tangent_vector_at_point_on_chart, false);
 
 			DEFINE_LAX_BUILTIN(const double (const std::shared_ptr<tangent_vector>&, const std::shared_ptr<tangent_vector>&), detail::metric_tensor, metric_tensor, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<tangent_flow> (const std::shared_ptr<tangent_vector>&), detail::geodesic_tangent, geodesic_tangent, false);
-			DEFINE_CACHED_LAX_BUILTIN(std::shared_ptr<tangent_flow> (const std::shared_ptr<tangent_flow>&, const std::shared_ptr<tangent_vector>&), detail::parallel_transport, parallel_transport, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<tangent_flow> (const std::shared_ptr<tangent_vector>&), detail::geodesic_tangent, geodesic_tangent, false);
+			DEFINE_CACHED_LAX_BUILTIN(const std::shared_ptr<tangent_flow> (const std::shared_ptr<tangent_flow>&, const std::shared_ptr<tangent_vector>&), detail::parallel_transport, parallel_transport, false);
 
 			DEFINE_CACHED_LAX_BUILTIN(const optional<std::shared_ptr<tangent_flow> > (const std::shared_ptr<point>&, const std::shared_ptr<point>&), detail::connecting_geodesic_tangent, connecting_geodesic_tangent, false);
 			//DEFINE_LAX_BUILTIN(const optional<pair<double, std::shared_ptr<tangent_flow> > > (const std::shared_ptr<point>&, const std::shared_ptr<worldline>&, const double&), detail::connecting_null_geodesic_result, connecting_null_geodesic_result, false);
